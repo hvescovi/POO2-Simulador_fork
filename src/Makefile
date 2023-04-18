@@ -2,13 +2,14 @@
 CXX=g++
 
 # FLAG DE INCLUSÃO
-INCDIRS=-ISDL2\i686-w64-mingw32\include\SDL2 -LSDL2\i686-w64-mingw32\lib 
+# INCDIRS=-ISDL2\i686-w64-mingw32\include\SDL2 -LSDL2\i686-w64-mingw32\lib 
+INCDIRS=-ISDL2\i686-w64-mingw32\include\SDL2
 
 # FLAG DE BIBLIOTECA
 LDFLAGS = -LSDL2\i686-w64-mingw32\lib -lmingw32 -lSDL2main -lSDL2
 
 # FLAGS
-CXXFLAGS=-g $(INCDIRS) -w
+CXXFLAGS=-g $(INCDIRS)
 
 OBJECTS=App.o App_Implementation.o App_LoadFromArchive.o \
 	AppUtils.o AppVar.o Body.o Particle.o Vect.o Simulador.o
@@ -21,7 +22,7 @@ bin:
 	if not exist bin mkdir bin
 
 $(BINARY): $(OBJECTS) bin
-	$(CXX) $(LDFLAGS) -o bin/$(BINARY) $(OBJECTS)
+	$(CXX) $(OBJECTS) -o bin/$(BINARY) $(LDFLAGS)
 
 App.o: App.cpp App.hpp \
 	AppVar.cpp AppVar.hpp \
