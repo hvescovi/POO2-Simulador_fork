@@ -1,13 +1,17 @@
-CXX=g++                     # COMPILADOR
-INCDIRS=-Isdl2/include      # FLAG DE INCLUSÃO DE DIRETÓRIOS
-OPT=-O0                     # FLAG DE OTIMIZAÇÕES
-# CXXFLAGS = -I/usr/include/SDL2 -D_REENTRANT
-# LDFLAGS = -lSDL2
-# CXXFLAGS=-Wall -Wextra -Werror -g $(INCDIRS) $(OPT) # FLAGS
-CXXFLAGS=-g $(INCDIRS) $(OPT) # FLAGS
+# COMPILADOR
+CXX=g++
+
+# FLAG DE INCLUSÃO
+INCDIRS=-ISDL2\i686-w64-mingw32\include\SDL2 -LSDL2\i686-w64-mingw32\lib 
+
+# FLAG DE BIBLIOTECA
+LDFLAGS = -LSDL2\i686-w64-mingw32\lib -lmingw32 -lSDL2main -lSDL2
+
+# FLAGS
+CXXFLAGS=-g $(INCDIRS) -w
 
 OBJECTS=App.o App_Implementation.o App_LoadFromArchive.o \
-	AppUtils.o AppVar.o Particle.o Simulador.o Vect.o
+	AppUtils.o AppVar.o Body.o Particle.o Vect.o Simulador.o
 
 BINARY=Simulador
 
@@ -17,7 +21,7 @@ bin:
 	if not exist bin mkdir bin
 
 $(BINARY): $(OBJECTS) bin
-	$(CXX) $(CXXFLAGS) -o bin/$(BINARY) $(OBJECTS)
+	$(CXX) $(LDFLAGS) -o bin/$(BINARY) $(OBJECTS)
 
 App.o: App.cpp App.hpp \
 	AppVar.cpp AppVar.hpp \
@@ -36,6 +40,9 @@ AppUtils.o: AppUtils.cpp AppUtils.hpp Vect.hpp
 
 AppVar.o: AppVar.cpp AppVar.hpp Particle.hpp Vect.hpp
 	$(CXX) $(CXXFLAGS) -c AppVar.cpp
+
+Body.o: Body.cpp Body.hpp Vect.hpp
+	$(CXX) $(CXXFLAGS) -c Body.cpp
 
 Particle.o: Particle.cpp Particle.hpp Vect.hpp
 	$(CXX) $(CXXFLAGS) -c Particle.cpp
