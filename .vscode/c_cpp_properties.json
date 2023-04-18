@@ -4,7 +4,6 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${workspaceFolder}/src/SDL2/include",
                 "${workspaceFolder}/src/SDL2/i686-w64-mingw32/include/SDL2"
             ],
             "defines": [
@@ -15,8 +14,7 @@
             "compilerPath": "C:\\MinGW\\bin\\gcc.exe",
             "cStandard": "c17",
             "cppStandard": "gnu++14",
-            "intelliSenseMode": "windows-gcc-x86",
-            "configurationProvider": "ms-vscode.makefile-tools"
+            "intelliSenseMode": "windows-gcc-x86"
         }
     ],
     "version": 4
