@@ -7,60 +7,60 @@ using namespace std;
 
 std::vector<Particle> App::LoadFromArchive(std::string filename)
 {
-	ifstream archive;
-	std::vector<Particle> v;
+    ifstream archive;
+    std::vector<Particle> v;
 
-	try
-	{
-		// Abre arquivo
-		archive.open(filename, ios::in);
+    try
+    {
+        // Abre arquivo
+        archive.open(filename, ios::in);
 
-		if (!archive.is_open())
-		{
-			const char* msg = "O arquivo n�o p�de ser aberto!";
-			throw string(msg);
-		}
+        if (!archive.is_open())
+        {
+            const char* msg = "O arquivo n�o p�de ser aberto!";
+            throw string(msg);
+        }
 
-	}
-	catch (const char* s)
-	{
-		SDL_Log(s);
-	}
+    }
+    catch (const char* s)
+    {
+        SDL_Log(s);
+    }
 
-	//DADOS:
-	//Posi��o Velocidade Raio
-	//FORMATO:
-	//PX PY VX VY RAD -> por linha, espa�o entre eles
+    //DADOS:
+    //Posi��o Velocidade Raio
+    //FORMATO:
+    //PX PY VX VY RAD -> por linha, espa�o entre eles
 
-	try
-	{
-		do
-		{
-			double px, py, vx, vy, rad;
-			archive >> px >> py >> vx >> vy >> rad;
+    try
+    {
+        do
+        {
+            double px, py, vx, vy, rad;
+            archive >> px >> py >> vx >> vy >> rad;
 
-			if (archive.fail())
-			{
-				const char* msg = "Erro ao ler valores!";
-				throw(msg);
-			}
+            if (archive.fail())
+            {
+                const char* msg = "Erro ao ler valores!";
+                throw(msg);
+            }
 
-			v.push_back(Particle(Vect(px, py), Vect(vx, vy), rad));
+            v.push_back(Particle(Vect(px, py), Vect(vx, vy), rad));
 
-		} while (archive.good());
+        } while (archive.good());
 
-		if (archive.bad() || !archive.eof()) 
-		{
-			const char* msg = "Erro fatal!";
-		}
-	}
-	catch (const char* s)
-	{
-		SDL_Log(s);
-		archive.close();
-	}
+        if (archive.bad() || !archive.eof()) 
+        {
+            const char* msg = "Erro fatal!";
+        }
+    }
+    catch (const char* s)
+    {
+        SDL_Log(s);
+        archive.close();
+    }
 
-	archive.close();
+    archive.close();
 
-	return v;
+    return v;
 }

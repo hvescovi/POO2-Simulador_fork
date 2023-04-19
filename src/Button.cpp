@@ -1,17 +1,17 @@
 #include "Button.hpp"
 
 Button::Button() :
-	position{ Vect() },
-	width{ 0 },
-	height{ 0 },
-	isPressed{ false }
+    position{ Vect() },
+    width{ 0 },
+    height{ 0 },
+    isPressed{ false }
 {}
 
 Button::Button(Vect position, int width, int height):
-	position{ position },
-	width{ width },
-	height{ height },
-	isPressed{ false }
+    position{ position },
+    width{ width },
+    height{ height },
+    isPressed{ false }
 {}
 
 Vect Button::get_pos() { return position; }
