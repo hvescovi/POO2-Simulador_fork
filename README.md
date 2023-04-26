@@ -2,7 +2,7 @@
 - Descrição resumida
 
 ## Sumário
-[Compilação](#compilação)
+- [Compilação](#compilação)
 
 ## Compilação
 Para compilar o projeto, é preciso ter o Make instalado. <br> <br>
