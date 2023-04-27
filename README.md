@@ -1,5 +1,6 @@
 # Simulador de comportamento de multidões
-- Descrição resumida
+O projeto é um programa que simula a fuga de pessoas de um local - representadas por circunferências - numa situação de emergência. <br>
+A simulação tem como objetivo comparar a variação no fluxo de saída das pessoas ao modificar variáveis do ambiente como largura das portas de saída, quantidade de portas de saída, etc.
 
 ## Sumário
 - [Compilação](#compilação)
