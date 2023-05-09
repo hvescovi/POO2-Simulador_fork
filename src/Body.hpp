@@ -2,7 +2,7 @@
 #include "Vect.hpp"
 class Body
 {
-    protected:
+    public:
         // Vetor de posi��o
         Vect position;
 
@@ -32,13 +32,8 @@ class Body
          */
         Body(Vect initialPosition, Vect initalVelocity, double area);
 
-        Vect get_pos();
-        void set_pos(Vect pos);
-
-        Vect get_vel();
-        void set_vel(Vect newVel);
-
-        double get_area();
-        double get_mass();
+        Vect pos() const;
+        Vect vel() const;
+        double a() const;
+        double m() const;
 };
-
