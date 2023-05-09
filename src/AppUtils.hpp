@@ -7,31 +7,31 @@ class AppUtils
 {
     public:
         /**
-         * Est�tico. Desenha um vetor.
+         * Método estático. Desenha um vetor.
          * 
          * \param renderer Renderizador SDL
-         * \param initialPos Posi��o inicial do vetor
-         * \param finalPos Posi��o final do vetor
+         * \param initialPos Posição inicial do vetor
+         * \param finalPos Posição final do vetor
          * \return void
          */
         static void s_DrawVect(SDL_Renderer* renderer, Vect initialPos, Vect finalPos);
 
         /**
-         * Est�tico. Desenha uma part�cula.
+         * Método estático. Desenha uma partícula.
          * 
          * \param renderer Renderizador SDL
-         * \param particle Part�cula
-         * \param vertexQuantity Quantidade de v�rtices da part�cula
+         * \param particle Partícula
+         * \param vertexQuantity Quantidade de vértices da partícula
          * \return void
          */
         static void s_DrawParticle(SDL_Renderer* renderer, Particle particle, int vertexQuantity);
 
         /**
-         * Calcula a dist�ncia entre duas part�culas.
+         * Método estático. Calcula a distância entre duas partículas.
          * 
-         * \param particle1 Part�cula 1
-         * \param particle2 Part�cula 2
-         * \return double Dist�ncia entre as part�culas
+         * \param particle1 Partícula 1
+         * \param particle2 Partícula 2
+         * \return double (Distância entre as partículas)
          */
         static double s_DistanceBetweenParticles(Particle particle1, Particle particle2);
 };

@@ -1,14 +1,17 @@
 #pragma once
-
 #include <cmath>
 
 class Vect
 {
     public:
+        // Coord x
         double x;
+
+        // Coord y
         double y;
 
-    public:
+        // Construtor padrão.
+        // Verificar se é necessário.
         Vect();
         Vect(double coordX, double coordY);
         Vect(Vect first, Vect last);

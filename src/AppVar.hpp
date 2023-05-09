@@ -3,7 +3,7 @@
 #include "Particle.hpp"
 
 class AppVar
-/** Vari�veis "globais" de App */
+/** Variáveis "globais" de App */
 {
     private:
         // Frames por segundo da janela SDL.
@@ -27,24 +27,24 @@ class AppVar
         // Altura da janela SDL.
         int height;
 
-        // Quantidade de v�rtices para se desenhar as part�culas.
+        // Quantidade de vértices para se desenhar as partículas.
         int particleVertexQuantity;
 
     public:
-        // Part�culas.
+        // Partículas.
         std::vector<Particle> vectorParticle;
 
         // Construtor vazio.
         AppVar();
 
         /**
-         * Construtor. Inicializa um objeto AppVar respons�vel 
-         * por armazenar vari�veis "globais" de App.
+         * Construtor. Inicializa um objeto AppVar responsável 
+         * por armazenar variáveis "globais" de App.
          *
          * \param fps Frames por segundo da janela SDL
          * \param width Largura da janela SDL
          * \param heigth Altura da janela SDL
-         * \param vectorParticle Lista de part�culas
+         * \param vectorParticle Lista de partículas
          */
         AppVar(int fps, int width, int heigth, int particleVertexQuantity, std::vector<Particle> vectorParticle);
 

@@ -3,32 +3,27 @@
 class Body
 {
     public:
-        // Vetor de posi��o
+        // Vetor de posição
         Vect position;
 
         // Vetor de velocidade
         Vect velocity;
 
-        //Vect acceleration;
-
-        // �rea
+        // Área
         double area;
 
         // Massa
         double mass;
 
-        //double density;
-
-    public:
-        // Construtor padr�o.
+        // Construtor padrão.
         Body();
 
         /**
-         * Construtor. Inicializa uma part�cula.
+         * Construtor. Inicializa uma partícula.
          *
-         * \param initialPosition Vetor de posi��o inicial
+         * \param initialPosition Vetor de posição inicial
          * \param initalVelocity Vetor de velocidade inicial
-         * \param area �rea
+         * \param area Área
          */
         Body(Vect initialPosition, Vect initalVelocity, double area);
 
