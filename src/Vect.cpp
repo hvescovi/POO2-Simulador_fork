@@ -1,5 +1,5 @@
 #include "Vect.hpp"
-#include <cmath>
+
 #define PI 3.1415926535897932384626433832795
 
 Vect::Vect():
@@ -13,45 +13,42 @@ Vect::Vect(double coordX, double coordY):
 {}
 
 Vect::Vect(Vect first, Vect last):
-    x{last.get_x() - first.get_x()},
-    y{last.get_y() - first.get_y()}
+    x{last.x - first.x},
+    y{last.y - first.y}
 {}
-
-double Vect::get_x() { return x; }
-double Vect::get_y() { return y; }
 
 Vect Vect::unitVect()
 {
-    double vModule = this->Module();
+    double vModule = Module();
     return Vect(x, y) / vModule;
 }
 
 double Vect::Module() 
 {
-    return pow(pow(x, 2.0) + pow(y, 2.0), 0.5);
+    return std::sqrt(x * x + y * y);
 }
 
 double Vect::VSin() 
 { 
-    return y / this->Module(); 
+    return y / Module(); 
 }
 
 double Vect::VCos() 
 {
-    return x / this->Module();
+    return x / Module();
 }
 
 double Vect::Argument()
 {
-    double vsin = this->VSin();
-    double vcos = this->VCos();
+    double vsin = VSin();
+    double vcos = VCos();
     if (vsin < 0.0)
     {
-        return 2 * PI - acos(vcos);
+        return 2 * PI - std::acos(vcos);
     }
     else if (vsin > 0.0)
     {
-        return acos(vcos);
+        return std::acos(vcos);
     }
     else if (vsin == 0.0 && vcos == 1.0)
     {
@@ -65,8 +62,8 @@ double Vect::Argument()
 
 void Vect::IncArgument(double radInc)
 {
-    double module = this->Module();
-    double incrementedAlpha = this->Argument() + radInc;
-    x = module * cos(incrementedAlpha);
-    y = module * sin(incrementedAlpha);
+    double module = Module();
+    double incrementedAlpha = Argument() + radInc;
+    x = module * std::cos(incrementedAlpha);
+    y = module * std::sin(incrementedAlpha);
 }

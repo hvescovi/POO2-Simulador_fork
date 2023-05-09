@@ -6,7 +6,7 @@
 class Particle : public Body
 /** Classe que representa uma part�cula circular. */
 {
-    private:
+    public:
         // Raio da part�cula (a part�cula � circular)
         double radius;
 
@@ -23,7 +23,7 @@ class Particle : public Body
          */
         Particle(Vect initialPosition, Vect initalVelocity, double radius);
 
-        double get_rad();
+        double rad();
 
         static std::vector<Particle> createVectorParticle1();
         static std::vector<Particle> createVectorParticle2();

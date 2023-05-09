@@ -12,7 +12,7 @@ Particle::Particle(Vect initialPosition, Vect initalVelocity, double radius):
     radius{ radius }
 {}
 
-double Particle::get_rad() { return radius; }
+double Particle::rad() { return radius; }
 
 std::vector<Particle> Particle::createVectorParticle1()
 {
