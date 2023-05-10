@@ -14,11 +14,3 @@ Body::Body(Vect initialPosition, Vect initalVelocity, double area):
     area{ area },
     mass{ area } // Considera-se a massa igual � �rea
 {}
-
-Vect Body::pos() const { return position; }
-
-Vect Body::vel() const { return velocity; }
-
-double Body::a() const { return area; }
-
-double Body::m() const { return mass; }

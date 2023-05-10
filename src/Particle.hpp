@@ -4,26 +4,24 @@
 #include <vector>
 
 class Particle : public Body
-/** Classe que representa uma part�cula circular. */
+/** Classe que representa uma partícula circular. */
 {
     public:
-        // Raio da part�cula (a part�cula � circular)
+        // Raio da partícula (a partícula é circular)
         double radius;
 
-    public:
         // Construtor padr�o.
+        // Construtor padrão.
         Particle();
 
         /**
-         * Construtor. Inicializa uma part�cula.
+         * Construtor. Inicializa uma partícula.
          * 
-         * \param initialPosition Vetor de posi��o inicial
+         * \param initialPosition Vetor de posição inicial
          * \param initalVelocity Vetor de velocidade inicial
          * \param radius Raio
          */
         Particle(Vect initialPosition, Vect initalVelocity, double radius);
-
-        double rad();
 
         static std::vector<Particle> createVectorParticle1();
         static std::vector<Particle> createVectorParticle2();
