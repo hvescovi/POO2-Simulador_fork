@@ -7,11 +7,11 @@
 class App
 {
     private:
-        // Objeto que armazena vari�veis "globais" de App, como FPS,
-        // dimens�es da tela e lista de part�culas.
+        // Objeto que armazena variáveis "globais" de App, como FPS,
+        // dimensões da tela e lista de partículas.
         AppVar global;
 
-        // Aplica��o em execu��o.
+        // Aplicação em execução.
         bool running;
 
         // Janela SDL.
@@ -20,28 +20,27 @@ class App
         // Renderizador SDL.
         SDL_Renderer* renderer;
 
-    public:
         // Construtor vazio.
         App();
 
         /**
-         * Inicializa o SDL, vari�veis de App e loop do simulador.
+         * Inicializa a simulação.
          *
-         * \return 0 ao t�rmino da execu��o.
+         * \return 0 ao término da execução
          */
         int Execute();
 
-        /**
+        /** 
          * Inicia funcionalidades do SDL e propriedades de App.
-         * Se ocorrer algum erro ao iniciar objetos, este � tratado
-         * e o programa para de executar com c�dido de sa�da 1.
+         * Se ocorrer algum erro ao iniciar objetos, este é tratado
+         * e o programa para de executar com códido de saída 1.
          * 
          * \return void
          */
         void OnInit();
 
         /**
-         * � executado antes do loop principal da aplica��o.
+         * É executado antes do loop principal da aplicação.
          * 
          * \return void
          */
@@ -56,35 +55,35 @@ class App
         void OnEvent(SDL_Event event);
 
         /**
-         * Executa um la�o que percorre cada part�cula.
+         * Executa um loop que percorre cada partícula.
          * 
          * \return void
          */
         void OnLoopThroughParticles();
 
         /**
-         * Atualiza a posi��o das part�culas baseando-se em suas
+         * Atualiza a posição das partículas baseando-se em suas
          * velocidades e no tempo entre frames.
          * 
-         * \param particle Part�cula
+         * \param particle Partícula
          */
         void OnParticleMove(Particle& particle);
 
         /**
-         * Verifica colis�o entre duas part�culas e, caso haja,
-         * calcula as velocidades p�s-colis�o.
+         * Verifica colisão entre duas partículas e, caso haja,
+         * calcula as velocidades pós-colisão.
          * 
-         * \param particle1 Part�cula 1
-         * \param particle2 Part�cula 2
+         * \param particle1 Partícula 1
+         * \param particle2 Partícula 2
          * \return void
          */
         void OnParticleCollision(Particle& particle1, Particle& particle2);
 
         /**
-         * Verifica colis�o entre part�cula e borda e, caso
+         * Verifica colisão entre partícula e borda e, caso
          * haja, inverte componentes do vetor de velocidade.
          * 
-         * \param particle Part�cula
+         * \param particle Partícula
          * \return void
          */
         void OnParticleBorderCollision(Particle& particle);
@@ -104,7 +103,7 @@ class App
         void OnRenderPresent();
 
         /**
-         * Renderiza uma part�cula.
+         * Renderiza uma partícula.
          * 
          * \param particle
          * \return void
@@ -112,7 +111,7 @@ class App
         void OnRenderParticle(Particle particle);
 
         /**
-         * OnTimeDelay mant�m o contador de FPS perto do desejado, uniformizando
+         * OnTimeDelay mantém o contador de FPS perto do desejado, uniformizando
          * o comportamento do simulador e economizando recursos.
          * 
          * \return void
@@ -120,7 +119,7 @@ class App
         void OnTimeDelay();
 
         /**
-         * Limpa objetos da mem�ria e finaliza o SDL.
+         * Limpa objetos da memória e finaliza o SDL.
          * 
          * \return void
          */

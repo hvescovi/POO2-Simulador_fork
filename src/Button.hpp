@@ -4,12 +4,13 @@ class Button
 {
     public:
         // Posi��o do canto superior esquerdo do bot�o
+        // Posição do canto superior esquerdo do botão
         Vect position;
 
         // Largura e altura
         int width, height;
 
-        // Est� pressionado -> Verdadeiro ou Falso
+        // Está pressionado -> Verdadeiro ou Falso
         bool isPressed;
 
         // Contrutor vazio.
