@@ -21,7 +21,7 @@ int App::Execute()
     while (running) 
     {
         // Ticks atuais da execução do SDL. É utilizado em OnTimeDelay
-        global.set_ticks(SDL_GetTicks());
+        global.ticks = SDL_GetTicks();
 
         // Checa por eventos e os percorre um por vez a partir de uma fila.
         // A fila é preenchida por eventos toda vez que o SDL detecta um input.

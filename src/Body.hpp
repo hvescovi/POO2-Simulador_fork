@@ -19,7 +19,6 @@ class Body
 
         //double density;
 
-    public:
         // Construtor padr�o.
         Body();
 
@@ -31,9 +30,4 @@ class Body
          * \param area �rea
          */
         Body(Vect initialPosition, Vect initalVelocity, double area);
-
-        Vect pos() const;
-        Vect vel() const;
-        double a() const;
-        double m() const;
 };

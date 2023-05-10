@@ -3,7 +3,7 @@
 
 void App::OnBeforeLoop()
 {
-    global.set_ticks(SDL_GetTicks());
+    global.ticks = SDL_GetTicks();
     OnRenderClear();
     OnLoopThroughParticles();
     OnRenderPresent();
@@ -57,8 +57,8 @@ void App::OnInit()
         "Simulador",
         SDL_WINDOWPOS_UNDEFINED,
         SDL_WINDOWPOS_UNDEFINED,
-        global.get_width(),
-        global.get_heigth(),
+        global.width,
+        global.height,
         SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL
     );
 
@@ -114,81 +114,41 @@ void App::OnParticleBorderCollision(Particle& particle)
     bool verticalCollision = false;
 
     // Lateral esquerda
-    if (particle.get_pos().get_x() - particle.get_rad() <= 0)
+    if (particle.position.x - particle.radius <= 0)
     {
         verticalCollision = true;
 
-        particle.set_pos(
-            Vect(
-                particle.get_rad() + 1,
-                particle.get_pos().get_y()
-            )
-        );
+        particle.position = Vect(particle.radius + 1, particle.position.y);
 
-        particle.set_vel(
-            Vect(
-                particle.get_vel().get_x() * -1,
-                particle.get_vel().get_y()
-            )
-        );
+        particle.velocity = Vect(particle.velocity.x * -1, particle.velocity.y);
     }
 
     // Lateral direita
-    if (!verticalCollision && particle.get_pos().get_x() + particle.get_rad() >= global.get_width())
+    if (!verticalCollision && particle.position.x + particle.radius >= global.width)
     {
-        particle.set_pos(
-            Vect(
-                global.get_width() - particle.get_rad() - 1,
-                particle.get_pos().get_y()
-            )
-        );
+        particle.position = Vect(global.width - particle.radius - 1, particle.position.y);
 
-        particle.set_vel(
-            Vect(
-                particle.get_vel().get_x() * -1,
-                particle.get_vel().get_y()
-            )
-        );
+        particle.velocity = Vect(particle.velocity.x * -1, particle.velocity.y);
     }
 
     bool horizontalCollision = false;
 
     // Cima
-    if (particle.get_pos().get_y() - particle.get_rad() <= 0)
+    if (particle.position.y - particle.radius <= 0)
     {
         horizontalCollision = true;
 
-        particle.set_pos(
-            Vect(
-                particle.get_pos().get_x(),
-                particle.get_rad() + 1
-            )
-        );
+        particle.position = Vect(particle.position.x, particle.radius + 1);
 
-        particle.set_vel(
-            Vect(
-                particle.get_vel().get_x(),
-                particle.get_vel().get_y() * -1
-            )
-        );
-    }
+        particle.velocity = Vect(particle.velocity.x, particle.velocity.y * -1);
+}
 
     // Baixo
-    if (!horizontalCollision && particle.get_pos().get_y() + particle.get_rad() >= global.get_heigth())
+    if (!horizontalCollision && particle.position.y + particle.radius >= global.height)
     {
-        particle.set_pos(
-            Vect(
-                particle.get_pos().get_x(),
-                global.get_heigth() - particle.get_rad() - 1
-            )
-        );
+        particle.position = Vect(particle.position.x, global.height - particle.radius - 1);
 
-        particle.set_vel(
-            Vect(
-                particle.get_vel().get_x(),
-                particle.get_vel().get_y() * -1
-            )
-        );
+        particle.velocity = Vect(particle.velocity.x, particle.velocity.y * -1);
     }
 }
 
@@ -197,15 +157,15 @@ void App::OnParticleCollision(Particle& particle1, Particle& particle2)
     // Se o produto escalar entre o vetor formado pelos vetores de posi��o
     // e o vetor formado pelos vetores de velocidade for maior ou igual
     // a zero, as part�culas n�o est�o se aproximando
-    if (Vect(particle1.get_pos(), particle2.get_pos()) *
-        Vect(particle1.get_vel(), particle2.get_vel()) >= 0)
+    if (Vect(particle1.position, particle2.position) *
+        Vect(particle1.velocity, particle2.velocity) >= 0)
     {
         return;
     }
 
     // Se a soma dos raios das part�culas for menor que a dist�ncia 
     // entre as posi��es das part�culas, n�o h� colis�o
-    if (particle1.get_rad() + particle2.get_rad() <
+    if (particle1.radius + particle2.radius <
         AppUtils::s_DistanceBetweenParticles(particle1, particle2))
     {
         SDL_Log("N�o vou colidir");
@@ -234,10 +194,10 @@ void App::OnParticleCollision(Particle& particle1, Particle& particle2)
     // Eles formam "eixos" que ser�o utilizados em passos seguintes
 
     // "Eixo y"
-    Vect uVN = Vect(particle1.get_pos(), particle2.get_pos()).unitVect();
+    Vect uVN = Vect(particle1.position, particle2.position).unitVect();
     
     // "Eixo x"
-    Vect uVT = Vect(-uVN.get_y(), uVN.get_x());
+    Vect uVT = Vect(-uVN.y, uVN.x);
 
     // Passo 2 - Criar os vetores de velocidade inicial 
     // (antes da colis�o) de ambos os c�rculos. 
@@ -247,10 +207,10 @@ void App::OnParticleCollision(Particle& particle1, Particle& particle2)
     // nos vetores unit�rios normal e tangente.
     // Isto pode ser feito ao efetuar o produto escalar entre
     // os vetores unit�rios e os vetores de velocidade
-    double v1NBc = uVN * particle1.get_vel();
-    double v1TBc = uVT * particle1.get_vel();
-    double v2NBc = uVN * particle2.get_vel();
-    double v2TBc = uVT * particle2.get_vel();
+    double v1NBc = uVN * particle1.velocity;
+    double v1TBc = uVT * particle1.velocity;
+    double v2NBc = uVN * particle2.velocity;
+    double v2TBc = uVT * particle2.velocity;
 
     // Passo 4 - Encontrar as velocidades tangenciais
     // p�s-colis�o. Elas s�o iguais �s pr�-colis�o
@@ -260,8 +220,8 @@ void App::OnParticleCollision(Particle& particle1, Particle& particle2)
     // Passo 5 - Encontrar as velocidades normais
     // p�s-colis�o. Utiliza-se as f�rmulas de momento
     // e de energia cin�tica em uma dimens�o
-    double m1 = particle1.get_mass();
-    double m2 = particle2.get_mass();
+    double m1 = particle1.mass;
+    double m2 = particle2.mass;
     double v1NAc = (v1NBc * (m1 - m2) + 2 * m2 * v2NBc) / (m1 + m2);
     double v2NAc = (v2NBc * (m2 - m1) + 2 * m1 * v1NBc) / (m1 + m2);
 
@@ -274,14 +234,14 @@ void App::OnParticleCollision(Particle& particle1, Particle& particle2)
 
     // Passo 7 - Encontrar os vetores de velocidade
     // p�s-colis�o e aplic�-los �s part�culas
-    particle1.set_vel(v1NA + v1TA);
-    particle2.set_vel(v2NA + v2TA);
+    particle1.velocity = v1NA + v1TA;
+    particle2.velocity = v2NA + v2TA;
 }
 
 void App::OnParticleMove(Particle& particle)
 {
     // Posi��o no instante i + 1 = Posi��o no instante i + Velocidade * DT Real.
-    particle.set_pos(particle.get_pos() + (particle.get_vel() * global.get_rDT()));
+    particle.position = particle.position + (particle.velocity * global.rDT);
 }
 
 void App::OnRenderClear()
@@ -301,7 +261,7 @@ void App::OnRenderParticle(Particle particle)
     AppUtils::s_DrawParticle(
         renderer,
         particle,
-        global.get_particleVertexQuantity()
+        global.particleVertexQuantity
     );
 
     SDL_SetRenderDrawColor(renderer, 255, 255, 0, SDL_ALPHA_OPAQUE);
@@ -309,8 +269,8 @@ void App::OnRenderParticle(Particle particle)
     // Desenha o vetor de velocidade da partícula
     AppUtils::s_DrawVect(
         renderer,
-        particle.get_pos(),
-        particle.get_pos() + particle.get_vel()
+        particle.position,
+        particle.position + particle.velocity
     );
 
     //SDL_Rect rect = { 100,100,440,280 };
@@ -329,13 +289,13 @@ void App::OnTimeDelay()
 {
     // dT recebe a diferen�a de ticks entre o come�o da
     // execu��o do la�o e o final
-    global.set_dT(SDL_GetTicks() - global.get_ticks());
+    global.dT = SDL_GetTicks() - global.ticks;
 
-    if (global.get_dT() < global.get_dDT())
+    if (global.dT < global.dDT)
     {
         // Pausa a execu��o por um tempo para o FPS atingir
         // valores pr�ximos ao desejado
-        SDL_Delay((Uint32)(global.get_dDT() - global.get_dT()));
+        SDL_Delay((Uint32)(global.dDT - global.dT));
     }
 
     // Mostra o FPS atual
@@ -344,5 +304,5 @@ void App::OnTimeDelay()
     // rDT recebe a diferen�a REAL de ticks entre o come�o
     // da execu��o do la�o e o final. (O tempo de execu��o 
     // deste m�todo tamb�m � relevante!)
-    global.set_rDT((SDL_GetTicks() - global.get_ticks()) / 1000.0);
+    global.rDT = (SDL_GetTicks() - global.ticks) / 1000.0;
 }

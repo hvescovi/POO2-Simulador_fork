@@ -10,7 +10,6 @@ class Particle : public Body
         // Raio da part�cula (a part�cula � circular)
         double radius;
 
-    public:
         // Construtor padr�o.
         Particle();
 
@@ -22,8 +21,6 @@ class Particle : public Body
          * \param radius Raio
          */
         Particle(Vect initialPosition, Vect initalVelocity, double radius);
-
-        double rad();
 
         static std::vector<Particle> createVectorParticle1();
         static std::vector<Particle> createVectorParticle2();

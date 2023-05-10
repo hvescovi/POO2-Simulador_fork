@@ -24,28 +24,28 @@ void AppUtils::s_DrawVect(SDL_Renderer* renderer, Vect initialPos, Vect finalPos
     // Renderizar segmento esquerdo da flecha do vetor
     SDL_RenderDrawLine(
         renderer,
-        (int)finalPos.get_x(),
-        (int)finalPos.get_y(),
-        (int)finalPos.get_x() + (int)std::round(LArrowSegment.get_x()), 
-        (int)finalPos.get_y() + (int)std::round(LArrowSegment.get_y())
+        (int)finalPos.x,
+        (int)finalPos.y,
+        (int)finalPos.x + (int)std::round(LArrowSegment.x), 
+        (int)finalPos.y + (int)std::round(LArrowSegment.y)
     );
 
     // Renderizar segmento direito da flecha do vetor
     SDL_RenderDrawLine(
         renderer,
-        (int)finalPos.get_x(),
-        (int)finalPos.get_y(),
-        (int)finalPos.get_x() + (int)std::round(RArrowSegment.get_x()),
-        (int)finalPos.get_y() + (int)std::round(RArrowSegment.get_y())
+        (int)finalPos.x,
+        (int)finalPos.y,
+        (int)finalPos.x + (int)std::round(RArrowSegment.x),
+        (int)finalPos.y + (int)std::round(RArrowSegment.y)
     );
 
     // Renderizar segmento principal do vetor
     SDL_RenderDrawLine(
         renderer, 
-        (int)initialPos.get_x(), 
-        (int)initialPos.get_y(),
-        (int)finalPos.get_x(),
-        (int)finalPos.get_y()
+        (int)initialPos.x, 
+        (int)initialPos.y,
+        (int)finalPos.x,
+        (int)finalPos.y
     );
 }
 
@@ -53,22 +53,22 @@ void AppUtils::s_DrawParticle(SDL_Renderer* renderer, Particle particle, int ver
 {
     double incRad = (360.0 / vertexQuantity) * PI_DIV_180;
 
-    Vect vAux1 = Vect(particle.get_rad(), 0.0);
-    Vect vAux2 = Vect(particle.get_rad(), 0.0);
+    Vect vAux1 = Vect(particle.radius, 0.0);
+    Vect vAux2 = Vect(particle.radius, 0.0);
     vAux2.IncArgument(incRad);
 
-    double cPosX = particle.get_pos().get_x();
-    double cPosY = particle.get_pos().get_y();
+    double cPosX = particle.position.x;
+    double cPosY = particle.position.y;
 
     int i = 0;
     while (i < vertexQuantity)
     {
         SDL_RenderDrawLine(
             renderer, 
-            (int)(cPosX + vAux1.get_x()),
-            (int)(cPosY + vAux1.get_y()),
-            (int)(cPosX + vAux2.get_x()),
-            (int)(cPosY + vAux2.get_y())
+            (int)(cPosX + vAux1.x),
+            (int)(cPosY + vAux1.y),
+            (int)(cPosX + vAux2.x),
+            (int)(cPosY + vAux2.y)
         );
 
         vAux1.IncArgument(incRad);
@@ -80,5 +80,5 @@ void AppUtils::s_DrawParticle(SDL_Renderer* renderer, Particle particle, int ver
 
 double AppUtils::s_DistanceBetweenParticles(Particle particle1, Particle particle2)
 {
-    return Vect(particle1.get_pos(), particle2.get_pos()).Module();
+    return Vect(particle1.position, particle2.position).Module();
 }

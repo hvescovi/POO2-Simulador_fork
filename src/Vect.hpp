@@ -8,7 +8,6 @@ class Vect
         double x;
         double y;
 
-    public:
         Vect();
         Vect(double coordX, double coordY);
         Vect(Vect first, Vect last);

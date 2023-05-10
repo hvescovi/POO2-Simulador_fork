@@ -2,7 +2,7 @@
 #include "Vect.hpp"
 class Button
 {
-    private:
+    public:
         // Posi��o do canto superior esquerdo do bot�o
         Vect position;
 
@@ -12,7 +12,6 @@ class Button
         // Est� pressionado -> Verdadeiro ou Falso
         bool isPressed;
 
-    public:
         // Contrutor vazio.
         Button();
 

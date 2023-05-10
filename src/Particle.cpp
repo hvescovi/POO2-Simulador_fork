@@ -12,8 +12,6 @@ Particle::Particle(Vect initialPosition, Vect initalVelocity, double radius):
     radius{ radius }
 {}
 
-double Particle::rad() { return radius; }
-
 std::vector<Particle> Particle::createVectorParticle1()
 {
     std::vector<Particle> vC;
