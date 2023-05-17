@@ -35,9 +35,9 @@ class Vect
 
         /**
          * Sobrecarga de operador de soma.
-         * Ele soma o vetor com o vetor passado de parâmetro.
          * 
-         * \param v Vetor passado por parâmetro
+         * 
+         * \param v Vetor do lado direito do operador de soma
          * 
          * \return Vect
         */
@@ -66,10 +66,37 @@ class Vect
             return Vect(x / value, y / value);
         }
 
+        /**
+         * Vetor unitário do vetor
+         * 
+         * \return Vect
+        */
         Vect unitVect();
+
+        /**
+         * Módulo do vetor.
+         * 
+         * \return double 
+        */
         double Module();
+
+        /**
+         * Retorna o seno do ângulo do vetor em
+         * relação ao eixo X.
+         * 
+         * \return double
+        */
         double VSin();
+
+        /**
+         * Retorna o cosseno do ângulo do vetor em
+         * relação ao eixo Y.
+         * 
+         * \return double
+        */
         double VCos();
+
         double Argument();
+
         void IncArgument(double radInc);
 };
