@@ -6,7 +6,7 @@
 
 class App
 {
-    private:
+    public:
         // Objeto que armazena variáveis "globais" de App, como FPS,
         // dimensões da tela e lista de partículas.
         AppVar global;
@@ -24,7 +24,7 @@ class App
         App();
 
         /**
-         * Inicializa a simulação.
+         * Inicia a simulação.
          *
          * \return 0 ao término da execução
          */
@@ -34,15 +34,11 @@ class App
          * Inicia funcionalidades do SDL e propriedades de App.
          * Se ocorrer algum erro ao iniciar objetos, este é tratado
          * e o programa para de executar com códido de saída 1.
-         * 
-         * \return void
          */
         void OnInit();
 
         /**
          * É executado antes do loop principal da aplicação.
-         * 
-         * \return void
          */
         void OnBeforeLoop();
 
@@ -50,14 +46,11 @@ class App
          * Trata eventos do SDL.
          * 
          * \param event
-         * \return void
          */
         void OnEvent(SDL_Event event);
 
         /**
          * Executa um loop que percorre cada partícula.
-         * 
-         * \return void
          */
         void OnLoopThroughParticles();
 
@@ -75,7 +68,6 @@ class App
          * 
          * \param particle1 Partícula 1
          * \param particle2 Partícula 2
-         * \return void
          */
         void OnParticleCollision(Particle& particle1, Particle& particle2);
 
@@ -84,21 +76,16 @@ class App
          * haja, inverte componentes do vetor de velocidade.
          * 
          * \param particle Partícula
-         * \return void
          */
         void OnParticleBorderCollision(Particle& particle);
 
         /**
          * Limpa a janela SDL.
-         * 
-         * \return void
          */
         void OnRenderClear();
 
         /**
          * Atualiza a janela SDL com o renderizador.
-         * 
-         * \return void
          */
         void OnRenderPresent();
 
@@ -106,22 +93,17 @@ class App
          * Renderiza uma partícula.
          * 
          * \param particle
-         * \return void
          */
         void OnRenderParticle(Particle particle);
 
         /**
          * OnTimeDelay mantém o contador de FPS perto do desejado, uniformizando
          * o comportamento do simulador e economizando recursos.
-         * 
-         * \return void
          */
         void OnTimeDelay();
 
         /**
          * Limpa objetos da memória e finaliza o SDL.
-         * 
-         * \return void
          */
         void OnCleanup();
 

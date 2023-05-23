@@ -4,13 +4,11 @@
 #include <vector>
 
 class Particle : public Body
-/** Classe que representa uma partícula circular. */
 {
     public:
         // Raio da partícula (a partícula é circular)
         double radius;
 
-        // Construtor padr�o.
         // Construtor padrão.
         Particle();
 

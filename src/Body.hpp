@@ -1,5 +1,6 @@
 #pragma once
 #include "Vect.hpp"
+
 class Body
 {
     public:
@@ -17,7 +18,6 @@ class Body
 
         //double density;
 
-        // Construtor padr�o.
         // Construtor padrão.
         Body();
 

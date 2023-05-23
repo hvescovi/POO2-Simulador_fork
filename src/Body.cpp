@@ -12,5 +12,5 @@ Body::Body(Vect initialPosition, Vect initalVelocity, double area):
     position{ initialPosition },
     velocity{ initalVelocity },
     area{ area },
-    mass{ area } // Considera-se a massa igual � �rea
+    mass{ area } // Considera-se a massa igual à área
 {}

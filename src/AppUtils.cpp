@@ -21,7 +21,7 @@ void AppUtils::s_DrawVect(SDL_Renderer* renderer, Vect initialPos, Vect finalPos
     LArrowSegment.IncArgument(mainSegmentArg + PI_MINUS_PI_DIV_6);
     RArrowSegment.IncArgument(mainSegmentArg + PI_PLUS_PI_DIV_6);
 
-    // Renderizar segmento esquerdo da flecha do vetor
+    // Renderiza segmento esquerdo da flecha do vetor
     SDL_RenderDrawLine(
         renderer,
         (int)finalPos.x,
@@ -30,7 +30,7 @@ void AppUtils::s_DrawVect(SDL_Renderer* renderer, Vect initialPos, Vect finalPos
         (int)finalPos.y + (int)std::round(LArrowSegment.y)
     );
 
-    // Renderizar segmento direito da flecha do vetor
+    // Renderiza segmento direito da flecha do vetor
     SDL_RenderDrawLine(
         renderer,
         (int)finalPos.x,
@@ -39,7 +39,7 @@ void AppUtils::s_DrawVect(SDL_Renderer* renderer, Vect initialPos, Vect finalPos
         (int)finalPos.y + (int)std::round(RArrowSegment.y)
     );
 
-    // Renderizar segmento principal do vetor
+    // Renderiza segmento principal do vetor
     SDL_RenderDrawLine(
         renderer, 
         (int)initialPos.x, 

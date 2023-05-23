@@ -17,20 +17,20 @@ std::vector<Particle> App::LoadFromArchive(std::string filename)
 
         if (!archive.is_open())
         {
-            const char* msg = "O arquivo n�o p�de ser aberto!";
+            const char* msg = "O arquivo não pôde ser aberto.";
             throw string(msg);
         }
 
     }
     catch (const char* s)
     {
-        SDL_Log(s);
+        std::cout << s << std::endl;
     }
 
     //DADOS:
-    //Posi��o Velocidade Raio
+    //Posição Velocidade Raio
     //FORMATO:
-    //PX PY VX VY RAD -> por linha, espa�o entre eles
+    //PX PY VX VY RAD -> por linha, espaço entre eles
 
     try
     {
@@ -41,7 +41,7 @@ std::vector<Particle> App::LoadFromArchive(std::string filename)
 
             if (archive.fail())
             {
-                const char* msg = "Erro ao ler valores!";
+                const char* msg = "Erro ao ler o conteúdo.";
                 throw(msg);
             }
 
@@ -51,12 +51,12 @@ std::vector<Particle> App::LoadFromArchive(std::string filename)
 
         if (archive.bad() || !archive.eof()) 
         {
-            const char* msg = "Erro fatal!";
+            const char* msg = "Erro fatal.";
         }
     }
     catch (const char* s)
     {
-        SDL_Log(s);
+        std::cout << s << std::endl;
         archive.close();
     }
 
