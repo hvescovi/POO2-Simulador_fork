@@ -3,7 +3,6 @@
 class Button
 {
     public:
-        // Posi��o do canto superior esquerdo do bot�o
         // Posição do canto superior esquerdo do botão
         Vect position;
 
@@ -17,10 +16,10 @@ class Button
         Button();
 
         /**
-         * Construtor. Inicializa um bot�o a partir
-         * de uma posi��o, largura e altura
+         * Construtor. Inicializa um botão a partir
+         * de uma posição, largura e altura
          * 
-         * \param position Vetor posi��o
+         * \param position Vetor posição
          * \param width Largura
          * \param height Altura
          */

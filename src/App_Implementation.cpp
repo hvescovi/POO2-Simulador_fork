@@ -1,5 +1,6 @@
 #include "App.hpp"
 #include "AppUtils.hpp"
+#include <iostream>
 
 void App::OnBeforeLoop()
 {
@@ -49,7 +50,7 @@ void App::OnInit()
 
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0) 
     {
-        SDL_Log("SDL não pôde ser inicializado: ", SDL_GetError());
+        std::cout << "SDL não pôde ser inicializado. " << SDL_GetError() << std::endl;
         exit(1);
     }
 
@@ -66,13 +67,13 @@ void App::OnInit()
 
     if (window == NULL) 
     {
-        SDL_Log("A janela SDL está com valor nulo. Erro: ", SDL_GetError());
+        std::cout << "A janela SDL está com valor nulo. " << SDL_GetError() << std::endl;
         exit(1);
     }
 
     if (renderer == NULL)
     {
-        SDL_Log("O renderizador SDL está com valor nulo. Erro: ", SDL_GetError());
+        std::cout << "O renderizador SDL está com valor nulo. " << SDL_GetError() << std::endl;
         exit(1);
     }
 }
@@ -90,8 +91,7 @@ void App::OnLoopThroughParticles()
         j = 0;
         while (j < size)
         {
-            // N�o se pode verificar colis�o de um c�rculo
-            // com ele mesmo
+            // Não se pode verificar colisão de um círculo com ele mesmo
             if (i == j)
             {
                 j += 1;
@@ -133,7 +133,7 @@ void App::OnParticleBorderCollision(Particle& particle)
 
     bool horizontalCollision = false;
 
-    // Cima
+    // Acima
     if (particle.position.y - particle.radius <= 0)
     {
         horizontalCollision = true;
@@ -143,7 +143,7 @@ void App::OnParticleBorderCollision(Particle& particle)
         particle.velocity = Vect(particle.velocity.x, particle.velocity.y * -1);
 }
 
-    // Baixo
+    // Abaixo
     if (!horizontalCollision && particle.position.y + particle.radius >= global.height)
     {
         particle.position = Vect(particle.position.x, global.height - particle.radius - 1);
@@ -154,44 +154,41 @@ void App::OnParticleBorderCollision(Particle& particle)
 
 void App::OnParticleCollision(Particle& particle1, Particle& particle2)
 {
-    // Se o produto escalar entre o vetor formado pelos vetores de posi��o
+    // Se o produto escalar entre o vetor formado pelos vetores de posição
     // e o vetor formado pelos vetores de velocidade for maior ou igual
-    // a zero, as part�culas n�o est�o se aproximando
+    // a zero, as partículas não estão se aproximando
     if (Vect(particle1.position, particle2.position) *
         Vect(particle1.velocity, particle2.velocity) >= 0)
     {
         return;
     }
 
-    // Se a soma dos raios das part�culas for menor que a dist�ncia 
-    // entre as posi��es das part�culas, n�o h� colis�o
+    // Se a soma dos raios das partículas for menor que a distância 
+    // entre as posições das partículas, não há colisão
     if (particle1.radius + particle2.radius <
         AppUtils::s_DistanceBetweenParticles(particle1, particle2))
     {
-        SDL_Log("N�o vou colidir");
         return;
     }
 
-    SDL_Log("Colis�o!");
-
     // Para maiores esclarecimentos,
     // https://www.vobarian.com/collisions/2dcollisions2.pdf
-    // Este PDF tamb�m est� na pasta "Utilidades" deste reposit�rio
+    // Este PDF também está na pasta "Utilidades" deste repositório
 
-    // Acr�nimos:
+    // Acrônimos:
     // v  -> Vetor
-    // uV -> Vetor unit�rio
-    // 1  -> Referente � part�cula 1
-    // 2  -> Referente � part�cula 2
+    // uV -> Vetor unitário
+    // 1  -> Referente à partícula 1
+    // 2  -> Referente à partícula 2
     // N  -> Normal (perpendicular)
     // T  -> Tangente
-    // B  -> Before collision (Antes da colis�o)
-    // A  -> After collision (Depois da colis�o)
+    // B  -> Before collision (Antes da colisão)
+    // A  -> After collision (Depois da colisão)
     // c  -> Componente (grandeza escalar)
     // m  -> Massa
 
-    // Passo 1 - Achar vetor unit�rio normal e vetor unit�rio tangente.
-    // Eles formam "eixos" que ser�o utilizados em passos seguintes
+    // Passo 1 - Achar vetor unitário normal e vetor unitário tangente.
+    // Eles formam "eixos" que serão utilizados em passos seguintes
 
     // "Eixo y"
     Vect uVN = Vect(particle1.position, particle2.position).unitVect();
@@ -200,26 +197,26 @@ void App::OnParticleCollision(Particle& particle1, Particle& particle2)
     Vect uVT = Vect(-uVN.y, uVN.x);
 
     // Passo 2 - Criar os vetores de velocidade inicial 
-    // (antes da colis�o) de ambos os c�rculos. 
-    // OBS: Eles j� existem (objParticle.getVel())
+    // (antes da colisão) de ambos os círculos. 
+    // OBS: Eles já existem (obj_particula.velocidade)
 
     // Passo 3 - Projetar os vetores de velocidade inicial
-    // nos vetores unit�rios normal e tangente.
+    // nos vetores unitários normal e tangente.
     // Isto pode ser feito ao efetuar o produto escalar entre
-    // os vetores unit�rios e os vetores de velocidade
+    // os vetores unitários e os vetores de velocidade
     double v1NBc = uVN * particle1.velocity;
     double v1TBc = uVT * particle1.velocity;
     double v2NBc = uVN * particle2.velocity;
     double v2TBc = uVT * particle2.velocity;
 
     // Passo 4 - Encontrar as velocidades tangenciais
-    // p�s-colis�o. Elas s�o iguais �s pr�-colis�o
+    // pós-colisão. Elas são iguais às pré-colisão
     double v1TAc = v1TBc;
     double v2TAc = v2TBc;
 
     // Passo 5 - Encontrar as velocidades normais
-    // p�s-colis�o. Utiliza-se as f�rmulas de momento
-    // e de energia cin�tica em uma dimens�o
+    // pós-colisão. Utiliza-se as fórmulas de momento
+    // e de energia cinética em uma dimensão
     double m1 = particle1.mass;
     double m2 = particle2.mass;
     double v1NAc = (v1NBc * (m1 - m2) + 2 * m2 * v2NBc) / (m1 + m2);
@@ -233,20 +230,20 @@ void App::OnParticleCollision(Particle& particle1, Particle& particle2)
     Vect v2TA = uVT * v2TAc;
 
     // Passo 7 - Encontrar os vetores de velocidade
-    // p�s-colis�o e aplic�-los �s part�culas
+    // pós-colisão e aplicá-los às partículas
     particle1.velocity = v1NA + v1TA;
     particle2.velocity = v2NA + v2TA;
 }
 
 void App::OnParticleMove(Particle& particle)
 {
-    // Posi��o no instante i + 1 = Posi��o no instante i + Velocidade * DT Real.
+    // Posição no instante i + 1 = Posição no instante i + Velocidade * DT Real.
     particle.position = particle.position + (particle.velocity * global.rDT);
 }
 
 void App::OnRenderClear()
 {
-    // Seta a cor atual para preto e o alfa para o m�ximo
+    // Seta a cor atual para preto e o alfa para o máximo
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
 
     // Preenche a tela com a cor atual
@@ -272,11 +269,6 @@ void App::OnRenderParticle(Particle particle)
         particle.position,
         particle.position + particle.velocity
     );
-
-    //SDL_Rect rect = { 100,100,440,280 };
-    //SDL_FillRect(Main_Surface, &rect, SDL_MapRGB(Main_Surface->format, 255, 0, 0));
-    //SDL_UpdateWindowSurface(Window);
-    //SDL_RenderDrawRect(Renderer, &rect);
 }
 
 void App::OnRenderPresent()
@@ -287,22 +279,22 @@ void App::OnRenderPresent()
 
 void App::OnTimeDelay()
 {
-    // dT recebe a diferen�a de ticks entre o come�o da
-    // execu��o do la�o e o final
+    // dT recebe a diferença de ticks entre o começo da
+    // execução do laço e o final
     global.dT = SDL_GetTicks() - global.ticks;
 
     if (global.dT < global.dDT)
     {
-        // Pausa a execu��o por um tempo para o FPS atingir
-        // valores pr�ximos ao desejado
+        // Pausa a execução por um tempo para o FPS atingir
+        // valores próximos ao desejado
         SDL_Delay((Uint32)(global.dDT - global.dT));
     }
 
     // Mostra o FPS atual
-    //SDL_Log("FPS: %i", 1000 / (SDL_GetTicks() - global.get_ticks()));
+    //std::cout << "FPS: " << 1000 / (SDL_GetTicks() - global.get_ticks()) << std::endl;
 
-    // rDT recebe a diferen�a REAL de ticks entre o come�o
-    // da execu��o do la�o e o final. (O tempo de execu��o 
-    // deste m�todo tamb�m � relevante!)
+    // rDT recebe a diferençaa REAL de ticks entre o começo
+    // da execução do laço e o final. (O tempo de execução 
+    // deste método também é relevante!)
     global.rDT = (SDL_GetTicks() - global.ticks) / 1000.0;
 }

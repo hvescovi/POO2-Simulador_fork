@@ -11,7 +11,6 @@ class Vect
         double y;
 
         // Construtor padrão.
-        // Verificar se é necessário.
         Vect();
 
         /**
@@ -24,8 +23,8 @@ class Vect
         
         /**
          * Construtor. Inicializa um Vetor com base em dois vetores,
-         * onde o 'first' é o início do primeiro vetor, que servirá como 
-         * origem (0,0) e o 'last' é o final do vetor.
+         * onde o 'first' é o primeiro vetor, que servirá como 
+         * origem (0,0) e o 'last' é o outro vetor.
          * Em suma, o cálculo fica {last - first}.
          * 
          * \param first Vetor inicial
@@ -34,69 +33,75 @@ class Vect
         Vect(Vect first, Vect last);
 
         /**
-         * Sobrecarga de operador de soma.
-         * 
-         * 
-         * \param v Vetor do lado direito do operador de soma
-         * 
-         * \return Vect
+         * \return (v1.x + v2.x, v1.y + v2.y)
         */
         Vect operator+ (const Vect& v) const
         {
             return Vect(x + v.x, y + v.y);
         }
 
+        /**
+         * \return (v1.x - v2.x, v1.y - v2.y)
+        */
         Vect operator- (const Vect& v)
         {
             return Vect(x - v.x, y - v.y);
         }
 
+        /**
+         * \return v1.x * v2.x + v1.y * v2.y (Produto escalar)
+        */
         double operator* (const Vect& v)
         {
             return x * v.x + y * v.y;
         }
 
+        /**
+         * \return (v.x * valor, v.y * valor)
+        */
         Vect operator* (const double& value)
         {
             return Vect(x * value, y * value);
         }
 
+        /**
+         * \return (v.x / valor, v.y / valor)
+        */
         Vect operator/ (const double& value)
         {
             return Vect(x / value, y / value);
         }
 
         /**
-         * Vetor unitário do vetor
-         * 
-         * \return Vect
+         * \return Vetor unitário do vetor-instância
         */
         Vect unitVect();
 
         /**
-         * Módulo do vetor.
-         * 
-         * \return double 
+         * \return Módulo do vetor
         */
         double Module();
 
         /**
-         * Retorna o seno do ângulo do vetor em
-         * relação ao eixo X.
-         * 
-         * \return double
+         * \return Seno do argumento do vetor
         */
         double VSin();
 
         /**
-         * Retorna o cosseno do ângulo do vetor em
-         * relação ao eixo Y.
-         * 
-         * \return double
+         * \return Cosseno do argumento do vetor
         */
         double VCos();
 
+        /**
+         * \return Argumento do vetor (ângulo em relação à
+         * parte positiva do eixo X)
+        */
         double Argument();
 
+        /**
+         * Rotaciona o vetor. Mais precisamente, incrementa seu argumento
+         * 
+         * \param radInc Incremento desejado em radianos
+        */
         void IncArgument(double radInc);
 };

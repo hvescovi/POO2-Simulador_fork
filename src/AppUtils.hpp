@@ -12,7 +12,6 @@ class AppUtils
          * \param renderer Renderizador SDL
          * \param initialPos Posição inicial do vetor
          * \param finalPos Posição final do vetor
-         * \return void
          */
         static void s_DrawVect(SDL_Renderer* renderer, Vect initialPos, Vect finalPos);
 
@@ -22,7 +21,6 @@ class AppUtils
          * \param renderer Renderizador SDL
          * \param particle Partícula
          * \param vertexQuantity Quantidade de vértices da partícula
-         * \return void
          */
         static void s_DrawParticle(SDL_Renderer* renderer, Particle particle, int vertexQuantity);
 
@@ -31,7 +29,7 @@ class AppUtils
          * 
          * \param particle1 Partícula 1
          * \param particle2 Partícula 2
-         * \return double (Distância entre as partículas)
+         * \return A distância entre as partículas
          */
         static double s_DistanceBetweenParticles(Particle particle1, Particle particle2);
 };

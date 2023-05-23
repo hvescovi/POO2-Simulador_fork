@@ -3,7 +3,6 @@
 #include "Particle.hpp"
 
 class AppVar
-/** Variáveis "globais" de App */
 {
     public:
         // Frames por segundo da janela SDL.
@@ -30,7 +29,6 @@ class AppVar
         // Quantidade de vértices para se desenhar as partículas.
         int particleVertexQuantity;
 
-        // Part�culas.
     public:
         // Partículas.
         std::vector<Particle> vectorParticle;
