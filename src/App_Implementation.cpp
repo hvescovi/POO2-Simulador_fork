@@ -4,11 +4,11 @@
 
 void App::OnBeforeLoop()
 {
-    global.ticks = SDL_GetTicks();
+    global.ST.ticks = SDL_GetTicks();
     OnRenderClear();
-    OnLoopThroughParticles();
+    OnLoopThroughBodies();
     OnRenderPresent();
-    OnTimeDelay();
+    global.ST.Delay();
     SDL_Delay((Uint32)2000);
 }
 
@@ -46,7 +46,7 @@ void App::OnEvent(SDL_Event event)
 
 void App::OnInit()
 {
-    global = AppVar(60, 800, 600, 24, Particle::createVectorParticle3());
+    global = AppVar(60, 800, 600, 24, Body::createVectorBody());
 
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0) 
     {
@@ -78,15 +78,15 @@ void App::OnInit()
     }
 }
 
-void App::OnLoopThroughParticles()
+void App::OnLoopThroughBodies()
 {
     int i = 0;
     int j = 0;
-    int size = (int)global.vectorParticle.size();
+    int size = (int)global.bodies.size();
     while (i < size)
     {
-        OnParticleMove(global.vectorParticle[i]);
-        OnParticleBorderCollision(global.vectorParticle[i]);
+        OnParticleMove(global.bodies[i]);
+        OnParticleBorderCollision(global.bodies[i]);
 
         j = 0;
         while (j < size)
@@ -98,12 +98,12 @@ void App::OnLoopThroughParticles()
                 continue;
             }
 
-            OnParticleCollision(global.vectorParticle[i], global.vectorParticle[j]);
+            OnParticleCollision(global.bodies[i], global.bodies[j]);
 
             j += 1;
         }
 
-        OnRenderParticle(global.vectorParticle[i]);
+        OnRenderParticle(global.bodies[i]);
 
         i += 1;
     }
@@ -238,7 +238,7 @@ void App::OnParticleCollision(Particle& particle1, Particle& particle2)
 void App::OnParticleMove(Particle& particle)
 {
     // Posição no instante i + 1 = Posição no instante i + Velocidade * DT Real.
-    particle.position = particle.position + (particle.velocity * global.rDT);
+    particle.position = particle.position + (particle.velocity * global.ST.rDT);
 }
 
 void App::OnRenderClear()
@@ -275,26 +275,4 @@ void App::OnRenderPresent()
 {
     //Atualiza a janela com o renderizador
     SDL_RenderPresent(renderer);
-}
-
-void App::OnTimeDelay()
-{
-    // dT recebe a diferença de ticks entre o começo da
-    // execução do laço e o final
-    global.dT = SDL_GetTicks() - global.ticks;
-
-    if (global.dT < global.dDT)
-    {
-        // Pausa a execução por um tempo para o FPS atingir
-        // valores próximos ao desejado
-        SDL_Delay((Uint32)(global.dDT - global.dT));
-    }
-
-    // Mostra o FPS atual
-    //std::cout << "FPS: " << 1000 / (SDL_GetTicks() - global.get_ticks()) << std::endl;
-
-    // rDT recebe a diferençaa REAL de ticks entre o começo
-    // da execução do laço e o final. (O tempo de execução 
-    // deste método também é relevante!)
-    global.rDT = (SDL_GetTicks() - global.ticks) / 1000.0;
 }

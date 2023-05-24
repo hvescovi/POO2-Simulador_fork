@@ -1,25 +1,11 @@
 #pragma once
 #include <vector>
-#include "Particle.hpp"
+#include "Body.hpp"
+#include "SimulationTime.hpp"
 
 class AppVar
 {
     public:
-        // Frames por segundo da janela SDL.
-        int fps;
-        
-        // Ticks atuais do SDL.
-        int ticks;
-
-        // Delta desejado.
-        double dDT;
-
-        // Delta do loop.
-        int dT;
-
-        // Delta real.
-        double rDT;
-
         // Largura da janela SDL.
         int width;
 
@@ -29,9 +15,11 @@ class AppVar
         // Quantidade de vértices para se desenhar as partículas.
         int particleVertexQuantity;
 
-    public:
-        // Partículas.
-        std::vector<Particle> vectorParticle;
+        // Objeto para manusear o tempo
+        SimulationTime ST;
+
+        // Corpos
+        std::vector<Body> bodies;
 
         // Construtor vazio.
         AppVar();
@@ -43,7 +31,7 @@ class AppVar
          * \param fps Frames por segundo da janela SDL
          * \param width Largura da janela SDL
          * \param heigth Altura da janela SDL
-         * \param vectorParticle Lista de partículas
+         * \param bodies Lista de corpos
          */
-        AppVar(int fps, int width, int heigth, int particleVertexQuantity, std::vector<Particle> vectorParticle);
+        AppVar(int fps, int width, int heigth, int particleVertexQuantity, std::vector<Body> bodies);
 };

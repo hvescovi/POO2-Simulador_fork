@@ -12,7 +12,8 @@ LDFLAGS = -LSDL2\i686-w64-mingw32\lib -lmingw32 -lSDL2main -lSDL2
 CXXFLAGS=-g $(INCDIRS)
 
 OBJECTS=App.o App_Implementation.o App_LoadFromArchive.o \
-	AppUtils.o AppVar.o Body.o Particle.o Vect.o Simulador.o
+	AppUtils.o AppVar.o Body.o Particle.o Vect.o SimulationTime.o \
+	Simulador.o
 
 BINARY=Simulador
 
@@ -50,6 +51,9 @@ Particle.o: Particle.cpp Particle.hpp Vect.hpp
 
 Vect.o: Vect.cpp Vect.hpp
 	$(CXX) $(CXXFLAGS) -c Vect.cpp
+
+SimulationTime.o: SimulationTime.cpp SimulationTime.hpp
+	$(CXX) $(CXXFLAGS) -c SimulationTime.cpp
 
 Simulador.o: Simulador.cpp # App.hpp AppVar.hpp Particle.hpp Vect.hpp
 	$(CXX) $(CXXFLAGS) -c Simulador.cpp

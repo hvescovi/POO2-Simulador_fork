@@ -1,0 +1,127 @@
+@startuml
+
+!function $vetorzinho($a)
+!return "<color:Navy>" + $a + "</color>"
+!endfunction
+
+!function $tempozinho($a)
+!return "<color:DarkGreen>" + $a + "</color>"
+!endfunction
+
+!theme toy
+
+skin rose
+
+title Diagrama de classes do Simulador
+
+skinparam backgroundColor #EEEBDC
+skinparam classFontColor MidnightBlue
+
+set separator ::
+
+class App{
+  AppVar global;
+  bool executando;
+  SDL_Window* janela;
+  SDL_Renderer* renderizador;
+  int Executar();
+  void AoIniciar();
+  void AoAntesLoop();
+  void AoEvento();
+  void AoLimpar();
+}
+class AppVar{
+  int alturaJanela;
+  int larguraJanela;
+  *$tempozinho("TempoSimulacao TS");
+  vector<Corpo> corpos;
+  vector<Botao> botoes;
+}
+class Vetor #white;line:Navy;line.bold;back:e5f4fe{
+  double x;
+  double y;
+  Vetor Unitario();
+  double Modulo();
+  double Seno();
+  double Cosseno();
+  double Argumento();
+  void IncArgumento(double inc);
+}
+class TempoSimulacao #white;line:darkgreen;line.bold;back:f4fee5{
+  int fps;
+  int ticks;
+  int dT;
+  double dDT;
+  double rDT;
+  void Atraso();
+}
+class Botao{
+  Retangulo retangulo;
+  *$vetorzinho("Vetor posicao");
+  vector<Caractere> caracteres;
+  bool pressionado;
+}
+class Corpo{
+  Circunferencia circunferencia;
+  *$vetorzinho("Vetor posicao");
+  *$vetorzinho("Vetor velocidade");
+  double area;
+  double massa;
+}
+abstract class Geometria::Forma{
+  virtual void exibir();
+}
+class Geometria::Retangulo{
+  double altura;
+  double largura;
+  void Exibir();
+}
+class Geometria::Caractere{
+  char caractere;
+  void Exibir();
+}
+class Geometria::Circunferencia{
+  double raio;
+  void Exibir();
+}
+abstract class Utilidades::Mecanica{
+  {static} void Mover(Corpo* corpo);
+  {static} void Colidir(Corpo* corpo);
+}
+abstract class Utilidades::Exibicao{
+  {static} void Exibir(Forma forma);
+}
+abstract class Utilidades::Reflexao{
+  {static} void ExibirConsumoMemoria();
+}
+abstract class Utilidades::Persistencia{
+  {static} void CarregarSimulacao();
+}
+
+App *-left- AppVar
+
+Mecanica -[hidden]> Exibicao
+Mecanica -[hidden]-> Reflexao
+Reflexao -[hidden]> Persistencia
+
+App .down. Utilidades
+
+AppVar *-left- TempoSimulacao
+AppVar "1" o-down- "n" Botao
+AppVar "1" o-down- "n" Corpo
+
+Botao *-- Retangulo
+Botao "1" o-- "n" Caractere
+
+Corpo *-- Circunferencia
+
+Retangulo --> Forma
+Caractere --> Forma
+Circunferencia --> Forma
+
+together {
+  class Corpo
+  class Botao
+}
+
+@enduml
