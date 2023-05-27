@@ -50,9 +50,9 @@ class App
         void OnEvent(SDL_Event event);
 
         /**
-         * Executa um loop que percorre cada partícula.
+         * Executa um loop que percorre cada corpo.
          */
-        void OnLoopThroughParticles();
+        void OnLoopThroughBodies();
 
         /**
          * Atualiza a posição das partículas baseando-se em suas
@@ -100,7 +100,7 @@ class App
          * OnTimeDelay mantém o contador de FPS perto do desejado, uniformizando
          * o comportamento do simulador e economizando recursos.
          */
-        void OnTimeDelay();
+        // void OnTimeDelay();
 
         /**
          * Limpa objetos da memória e finaliza o SDL.
