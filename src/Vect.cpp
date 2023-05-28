@@ -28,9 +28,14 @@ double Vect::Module()
     return std::sqrt(x * x + y * y);
 }
 
-double Vect::s_Distance(Vect v1, Vect v2)
+double Vect::s_Distance(Vect& v1, Vect& v2)
 {
     return Vect(v1, v2).Module();
+}
+
+double Vect::AngleBetween(Vect& v1, Vect& v2)
+{
+    return std::acos((v1 * v2) / (v1.Module() * v2.Module()));
 }
 
 double Vect::VSin() 

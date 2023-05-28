@@ -1,5 +1,7 @@
 #include "Mechanics.hpp"
-#include <typeinfo>
+#include <algorithm>
+
+#define PI 3.1415926535897932384626433832795
 
 void Mechanics::CircumMove(CircumBody& circum, double rDT)
 {
@@ -13,7 +15,7 @@ void Mechanics::CircumAccelerate(CircumBody& circum, double rDT)
     circum.velocity = circum.velocity + (circum.acceleration * rDT);
 }
 
-bool Mechanics::CircumMustCollide(CircumBody& circum1, CircumBody& circum2)
+void Mechanics::CircumCollision(CircumBody& circum1, CircumBody& circum2)
 {
     // Se o produto escalar entre o vetor formado pelos vetores de posição
     // e o vetor formado pelos vetores de velocidade for maior ou igual
@@ -21,7 +23,7 @@ bool Mechanics::CircumMustCollide(CircumBody& circum1, CircumBody& circum2)
     if (Vect(circum1.position, circum2.position) *
         Vect(circum1.velocity, circum2.velocity) >= 0)
     {
-        return false;
+        return;
     }
 
     // Se a soma dos raios dos corpos circulares for menor que a distância 
@@ -29,14 +31,9 @@ bool Mechanics::CircumMustCollide(CircumBody& circum1, CircumBody& circum2)
     if (circum1.radius + circum2.radius <
         Vect::s_Distance(circum1.position, circum2.position))
     {
-        return false;
+        return;
     }
 
-    return true;
-}
-
-void Mechanics::CircumDoCollide(CircumBody& circum1, CircumBody& circum2)
-{
     // Para maiores esclarecimentos,
     // https://www.vobarian.com/collisions/2dcollisions2.pdf
 
@@ -98,4 +95,50 @@ void Mechanics::CircumDoCollide(CircumBody& circum1, CircumBody& circum2)
     // pós-colisão e aplicá-los aos corpos circulares
     circum1.velocity = v1NA + v1TA;
     circum2.velocity = v2NA + v2TA;
+}
+
+double clamp(double value, double min, double max)
+{
+    return std::max(min, std::min(value, max));
+}
+
+void Mechanics::CircumRectCollision(CircumBody& circum, RectBody& rect)
+{
+    // Para maiores esclarecimentos sobre a detecção de colisão,
+    // https://youtu.be/_xj8FyG-aac
+
+    // Vetor do ponto mais próximo entre o corpo circular
+    // e retangular (Nearest Point)
+    Vect vNP = Vect(
+        clamp(circum.position.x, rect.position.x, rect.position.x + rect.width),
+        clamp(circum.position.y, rect.position.y, rect.position.y + rect.height)
+    );
+
+    // Vetor criado a partir da posição do corpo circular e NP
+    Vect vPosNP = Vect(vNP, circum.position);
+
+    // Se a distância entre a posição do corpo circular e NP
+    // for maior que a medida do raio, não há colisão
+    if (vPosNP.Module() > circum.radius)
+        return;
+
+    // Teste para saber se o vetor de velocidade está
+    // "acima" de vPosNP: 
+
+    // Se o argumento de vVelocityTest ficar abaixo de 180°,
+    // o vetor de velocidade do corpo circular está acima de vPosNP.
+
+    // Se o arguimento de vVelocityTest ficar acima de 180°,
+    // o vetor de velocidade do corpo circular está abaixo de vPosNP.
+    Vect vVelocityTest = Vect(circum.velocity.x, circum.velocity.y);
+    vVelocityTest.IncArgument(-vPosNP.Argument());
+
+    if (vVelocityTest.Argument() <= PI)
+        // Incrementa o argumento do vetor de velocidade do corpo
+        // circular com o seguinte ângulo em radianos:
+        // 180° - 2 * Ângulo entre vetor de velocidade e vPosNP
+        circum.velocity.IncArgument(PI - 2 * Vect::AngleBetween(circum.velocity, vPosNP));
+    else
+        // Para este caso, o incremento deve ser negativo
+        circum.velocity.IncArgument(-(PI - 2 * Vect::AngleBetween(circum.velocity, vPosNP)));
 }

@@ -1,5 +1,6 @@
 {
     "files.associations": {
+        "*.dll": "pascal",
         "array": "cpp",
         "atomic": "cpp",
         "*.tcc": "cpp",
@@ -43,6 +44,9 @@
         "stdexcept": "cpp",
         "streambuf": "cpp",
         "cinttypes": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "bit": "cpp",
+        "optional": "cpp",
+        "string_view": "cpp"
     }
 }

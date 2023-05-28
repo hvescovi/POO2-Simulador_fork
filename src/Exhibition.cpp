@@ -1,8 +1,53 @@
 #include "Exhibition.hpp"
 
+#define PI 3.1415926535897932384626433832795
 #define PI_DIV_180 0.01745329251994329576923690768489
+#define PI_MINUS_PI_DIV_6 2.6179938779914943653855361527329
+#define PI_PLUS_PI_DIV_6 3.6651914291880921115397506138261
 
-void Exhibition::DisplayRectBody  (SDL_Renderer* renderer, RectBody& rect,     Vect& drawPosition)
+void Exhibition::DisplayVector (SDL_Renderer* renderer, Vect& initialPos, Vect& finalPos)
+{
+    Vect mainSegment = Vect(initialPos, finalPos);
+
+    double arrowMod = mainSegment.Module() * 0.15;
+
+    Vect LArrowSegment = Vect(arrowMod, 0.0);
+    Vect RArrowSegment = Vect(arrowMod, 0.0);
+
+    double mainSegmentArg = mainSegment.Argument();
+
+    LArrowSegment.IncArgument(mainSegmentArg + PI_MINUS_PI_DIV_6);
+    RArrowSegment.IncArgument(mainSegmentArg + PI_PLUS_PI_DIV_6);
+
+    // Renderiza segmento esquerdo da flecha do vetor
+    SDL_RenderDrawLine(
+        renderer,
+        (int)finalPos.x,
+        (int)finalPos.y,
+        (int)finalPos.x + /*(int)std::round(*/LArrowSegment.x, 
+        (int)finalPos.y + /*(int)std::round(*/LArrowSegment.y
+    );
+
+    // Renderiza segmento direito da flecha do vetor
+    SDL_RenderDrawLine(
+        renderer,
+        (int)finalPos.x,
+        (int)finalPos.y,
+        (int)finalPos.x + /*(int)std::round(*/RArrowSegment.x,
+        (int)finalPos.y + /*(int)std::round(*/RArrowSegment.y
+    );
+
+    // Renderiza segmento principal do vetor
+    SDL_RenderDrawLine(
+        renderer, 
+        (int)initialPos.x, 
+        (int)initialPos.y,
+        (int)finalPos.x,
+        (int)finalPos.y
+    );
+}
+
+void Exhibition::DisplayRectBody  (SDL_Renderer* renderer, RectBody& rect, Vect& drawPosition)
 {
     SDL_RenderDrawLine(
             renderer, 

@@ -27,7 +27,6 @@ $(BINARY): $(OBJECTS) bin
 
 App.o: App.cpp App.hpp \
 	AppVar.cpp AppVar.hpp \
-	Particle.cpp Particle.hpp \
 	Vect.cpp Vect.hpp
 	$(CXX) $(CXXFLAGS) -c App.cpp
 
@@ -43,17 +42,14 @@ AppUtils.o: AppUtils.cpp AppUtils.hpp Vect.hpp
 AppVar.o: AppVar.cpp AppVar.hpp Particle.hpp Vect.hpp
 	$(CXX) $(CXXFLAGS) -c AppVar.cpp
 
-Body.o: Body.cpp Body.hpp Vect.hpp Shape.hpp
+Body.o: Body.cpp Body.hpp Vect.hpp
 	$(CXX) $(CXXFLAGS) -c Body.cpp
 
-Shape.o: Shape.cpp Shape.hpp Vect.hpp
-	$(CXX) $(CXXFLAGS) -c Shape.cpp
+CircumBody.o: CircumBody.cpp CircumBody.hpp Body.hpp Vect.hpp
+	$(CXX) $(CXXFLAGS) -c CircumBody.cpp
 
-Circle.o: Circle.cpp Circle.hpp Vect.hpp
-	$(CXX) $(CXXFLAGS) -c Circle.cpp
-
-Rectangle.o: Rectangle.cpp Rectangle.hpp Vect.hpp
-	$(CXX) $(CXXFLAGS) -c Rectangle.cpp
+RectBody.o: RectBody.cpp RectBody.hpp Body.hpp Vect.hpp
+	$(CXX) $(CXXFLAGS) -c RectBody.cpp
 
 Vect.o: Vect.cpp Vect.hpp
 	$(CXX) $(CXXFLAGS) -c Vect.cpp
