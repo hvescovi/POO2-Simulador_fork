@@ -5,7 +5,7 @@ Rectangle::Rectangle(double width, double height):
     height{height}
 {}
 
-void Rectangle::Display(SDL_Renderer* renderer, Vect drawPosition)
+void Rectangle::Display(SDL_Renderer* renderer, Vect& drawPosition)
 {
     SDL_RenderDrawLine(
             renderer, 

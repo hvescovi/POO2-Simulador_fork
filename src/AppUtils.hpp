@@ -15,21 +15,21 @@ class AppUtils
          */
         static void s_DrawVect(SDL_Renderer* renderer, Vect initialPos, Vect finalPos);
 
-        /**
-         * Método estático. Desenha uma partícula.
-         * 
-         * \param renderer Renderizador SDL
-         * \param particle Partícula
-         * \param vertexQuantity Quantidade de vértices da partícula
-         */
-        static void s_DrawParticle(SDL_Renderer* renderer, Particle particle, int vertexQuantity);
+        // /**
+        //  * Método estático. Desenha uma partícula.
+        //  * 
+        //  * \param renderer Renderizador SDL
+        //  * \param particle Partícula
+        //  * \param vertexQuantity Quantidade de vértices da partícula
+        //  */
+        // static void s_DrawParticle(SDL_Renderer* renderer, Particle particle, int vertexQuantity);
 
-        /**
-         * Método estático. Calcula a distância entre duas partículas.
-         * 
-         * \param particle1 Partícula 1
-         * \param particle2 Partícula 2
-         * \return A distância entre as partículas
-         */
-        static double s_DistanceBetweenParticles(Particle particle1, Particle particle2);
+        // /**
+        //  * Método estático. Calcula a distância entre duas partículas.
+        //  * 
+        //  * \param particle1 Partícula 1
+        //  * \param particle2 Partícula 2
+        //  * \return A distância entre as partículas
+        //  */
+        // static double s_DistanceBetweenParticles(Particle particle1, Particle particle2);
 };

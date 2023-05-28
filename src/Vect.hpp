@@ -82,6 +82,8 @@ class Vect
         */
         double Module();
 
+        static double s_Distance(Vect v1, Vect v2);
+
         /**
          * \return Seno do argumento do vetor
         */

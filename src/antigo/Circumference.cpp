@@ -6,7 +6,7 @@ Circumference::Circumference(double radius):
     radius{radius}
 {}
 
-void Circumference::Display(SDL_Renderer* renderer, Vect drawPosition, int vertexQuantity)
+void Circumference::Display(SDL_Renderer* renderer, Vect& drawPosition, int vertexQuantity)
 {
     double incRad = (360.0 / vertexQuantity) * PI_DIV_180;
 

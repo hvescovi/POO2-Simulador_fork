@@ -33,7 +33,7 @@ int App::Execute()
 
         OnRenderClear();
 
-        OnLoopThroughParticles();
+        OnLoopThroughBodies();
 
         OnRenderPresent();
 

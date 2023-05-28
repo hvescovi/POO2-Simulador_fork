@@ -1,17 +1,18 @@
-#pragma once
 #include "Vect.hpp"
 #include "Shape.hpp"
+#include <vector>
 
 class Body
 {
     public:
-        Shape shape;
-
         // Vetor de posição
         Vect position;
 
         // Vetor de velocidade
         Vect velocity;
+
+        // Vetor de aceleração
+        Vect acceleration;
 
         // Área
         double area;
@@ -31,7 +32,7 @@ class Body
          * \param initalVelocity Vetor de velocidade inicial
          * \param area Área
          */
-        Body(Vect initialPosition, Vect initalVelocity, double area);
+        Body(Vect initialPosition, Vect initalVelocity, Vect initialAcceleration, double area);
 
-        static std::vector<Body> createVectorBody();
+        // static std::vector<Body> createVectorBody();
 };

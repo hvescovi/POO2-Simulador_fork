@@ -2,6 +2,9 @@
 #include <vector>
 #include "Body.hpp"
 #include "SimulationTime.hpp"
+#include "RectBody.hpp"
+#include "CircumBody.hpp"
+using namespace std;
 
 class AppVar
 {
@@ -12,14 +15,15 @@ class AppVar
         // Altura da janela SDL.
         int height;
 
-        // Quantidade de vértices para se desenhar as partículas.
-        int particleVertexQuantity;
+        // Quantidade de vértices para se desenhar as circunferências.
+        int circumVertexQuantity;
 
         // Objeto para manusear o tempo
         SimulationTime ST;
 
         // Corpos
-        std::vector<Body> bodies;
+        vector<RectBody>   rectBodies;
+        vector<CircumBody> circumBodies;
 
         // Construtor vazio.
         AppVar();
@@ -31,7 +35,8 @@ class AppVar
          * \param fps Frames por segundo da janela SDL
          * \param width Largura da janela SDL
          * \param heigth Altura da janela SDL
-         * \param bodies Lista de corpos
+         * \param rectBodies Lista de corpos retangulares
+         * \param circumBodies Lista de corpos circulares
          */
-        AppVar(int fps, int width, int heigth, int particleVertexQuantity, std::vector<Body> bodies);
+        AppVar(int fps, int width, int heigth, int circumVertexQuantity, vector<RectBody> rectBodies, vector<CircumBody> circumBodies);
 };

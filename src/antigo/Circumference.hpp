@@ -9,5 +9,5 @@ class Circumference : public Shape
 
         Circumference(double radius);
 
-        void Display(SDL_Renderer* renderer, Vect drawPosition, int vertexQuantity);
+        void Display(SDL_Renderer* renderer, Vect& drawPosition, int vertexQuantity);
 };

@@ -3,16 +3,18 @@
 AppVar::AppVar():
     width{},
     height{},
-    bodies{},
-    particleVertexQuantity{},
+    rectBodies{},
+    circumBodies{},
+    circumVertexQuantity{},
     ST{}
 {}
 
-AppVar::AppVar(int pFps, int pWidth, int pHeigth, int particleVertexQuantity, std::vector<Body> bodies):
+AppVar::AppVar(int pFps, int pWidth, int pHeigth, int circumVertexQuantity, vector<RectBody> rectBodies, vector<CircumBody> circumBodies):
     width{ pWidth },
     height{ pHeigth },
-    bodies{ bodies },
-    particleVertexQuantity{ particleVertexQuantity },
+    rectBodies{},
+    circumBodies{},
+    circumVertexQuantity{ circumVertexQuantity },
     ST{pFps}
     //gravity{ Vect(0, 9.80665) }
 {}

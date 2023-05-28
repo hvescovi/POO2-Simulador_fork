@@ -10,5 +10,5 @@ class Rectangle : public Shape
 
         Rectangle(double width, double height);
 
-        void Display(SDL_Renderer* renderer, Vect drawPosition);
+        void Display(SDL_Renderer* renderer, Vect& drawPosition);
 };

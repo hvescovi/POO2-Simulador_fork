@@ -1,9 +1,13 @@
-#include "Body.hpp"
+#include "RectBody.hpp"
+#include "CircumBody.hpp"
 
 class Mechanics
 {
-    static void Move(Body& body, double rDT);
-    static void Accelerate(Body& body);
-    static void MustCollide(Body& body1, Body& body2);
-    static void DoCollide(Body& body1, Body& body2);
+    public:
+        static void CircumMove           (CircumBody& circum,  double      rDT    );
+        static void CircumAccelerate     (CircumBody& circum,  double      rDT    );
+        static bool CircumMustCollide    (CircumBody& circum1, CircumBody& circum2);
+        static void CircumDoCollide      (CircumBody& circum1, CircumBody& circum2);
+        static bool CircumRectMustCollide(CircumBody& circum,  RectBody&   rect   );
+        static void CircumRectDoCollide  (CircumBody& circum,  RectBody&   rect   );
 };
