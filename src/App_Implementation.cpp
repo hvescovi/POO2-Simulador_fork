@@ -155,7 +155,7 @@ std::vector<CircumBody> App::CBVExample1()
 {
     vector<CircumBody> v;
 
-    v.push_back(CircumBody(Vect(200, 400), Vect(20, 20), Vect(0, 10), 30));
+    v.push_back(CircumBody(Vect(100, 200), Vect(20, 20), Vect(0, 10), 30));
 
     return v;
 }
@@ -164,10 +164,14 @@ std::vector<RectBody> App::RBVExample1(int width, int height)
 {
     vector<RectBody> v;
 
+    // Bordas
     v.push_back(RectBody(Vect(0, 0),           Vect(0, 0), Vect(0, 0), width, 10 ));
     v.push_back(RectBody(Vect(0, height - 10), Vect(0, 0), Vect(0, 0), width, 10 ));
     v.push_back(RectBody(Vect(0, 0),           Vect(0, 0), Vect(0, 0), 10, height));
     v.push_back(RectBody(Vect(width - 10, 0),  Vect(0, 0), Vect(0, 0), 10, height));
+
+    // Teste
+    v.push_back(RectBody(Vect(150, 250),  Vect(0, 0), Vect(0, 0), 200, 100));
 
     return v;
 }
