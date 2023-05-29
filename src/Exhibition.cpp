@@ -5,7 +5,7 @@
 #define PI_MINUS_PI_DIV_6 2.6179938779914943653855361527329
 #define PI_PLUS_PI_DIV_6 3.6651914291880921115397506138261
 
-void Exhibition::DisplayVector (SDL_Renderer* renderer, Vect& initialPos, Vect& finalPos)
+void Exhibition::DisplayVector(SDL_Renderer* renderer, Vect initialPos, Vect finalPos)
 {
     Vect mainSegment = Vect(initialPos, finalPos);
 
@@ -47,42 +47,42 @@ void Exhibition::DisplayVector (SDL_Renderer* renderer, Vect& initialPos, Vect& 
     );
 }
 
-void Exhibition::DisplayRectBody  (SDL_Renderer* renderer, RectBody& rect, Vect& drawPosition)
+void Exhibition::DisplayRectBody(SDL_Renderer* renderer, RectBody& rect)
 {
     SDL_RenderDrawLine(
             renderer, 
-            drawPosition.x,
-            drawPosition.y,
-            drawPosition.x + rect.width,
-            drawPosition.y
+            rect.position.x,
+            rect.position.y,
+            rect.position.x + rect.width,
+            rect.position.y
         );
 
     SDL_RenderDrawLine(
             renderer, 
-            drawPosition.x,
-            drawPosition.y,
-            drawPosition.x,
-            drawPosition.y + rect.height
+            rect.position.x,
+            rect.position.y,
+            rect.position.x,
+            rect.position.y + rect.height
         );
 
     SDL_RenderDrawLine(
             renderer, 
-            drawPosition.x + rect.width,
-            drawPosition.y,
-            drawPosition.x + rect.width,
-            drawPosition.y + rect.height
+            rect.position.x + rect.width,
+            rect.position.y,
+            rect.position.x + rect.width,
+            rect.position.y + rect.height
         );
 
     SDL_RenderDrawLine(
             renderer, 
-            drawPosition.x,
-            drawPosition.y + rect.height,
-            drawPosition.x + rect.width,
-            drawPosition.y + rect.height
+            rect.position.x,
+            rect.position.y + rect.height,
+            rect.position.x + rect.width,
+            rect.position.y + rect.height
         );
 }
 
-void Exhibition::DisplayCircumBody(SDL_Renderer* renderer, CircumBody& circum, Vect& drawPosition, int circumVertexQuantity)
+void Exhibition::DisplayCircumBody(SDL_Renderer* renderer, CircumBody& circum, int circumVertexQuantity)
 {
     double incRad = (360.0 / circumVertexQuantity) * PI_DIV_180;
 
@@ -90,8 +90,8 @@ void Exhibition::DisplayCircumBody(SDL_Renderer* renderer, CircumBody& circum, V
     Vect vAux2 = Vect(circum.radius, 0.0);
     vAux2.IncArgument(incRad);
 
-    double cPosX = drawPosition.x;
-    double cPosY = drawPosition.y;
+    double cPosX = circum.position.x;
+    double cPosY = circum.position.y;
 
     int i = 0;
     while (i < circumVertexQuantity)

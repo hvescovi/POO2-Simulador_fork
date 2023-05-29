@@ -137,8 +137,8 @@ void Mechanics::CircumRectCollision(CircumBody& circum, RectBody& rect)
         // Incrementa o argumento do vetor de velocidade do corpo
         // circular com o seguinte ângulo em radianos:
         // 180° - 2 * Ângulo entre vetor de velocidade e vPosNP
-        circum.velocity.IncArgument(PI - 2 * Vect::AngleBetween(circum.velocity, vPosNP));
+        circum.velocity.IncArgument(PI - 2 * Vect::s_AngleBetween(circum.velocity, vPosNP));
     else
         // Para este caso, o incremento deve ser negativo
-        circum.velocity.IncArgument(-(PI - 2 * Vect::AngleBetween(circum.velocity, vPosNP)));
+        circum.velocity.IncArgument(-(PI - 2 * Vect::s_AngleBetween(circum.velocity, vPosNP)));
 }

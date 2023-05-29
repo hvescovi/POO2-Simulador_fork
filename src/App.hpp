@@ -1,7 +1,6 @@
 #pragma once
 #include <SDL.h>
 #include "AppVar.hpp"
-#include "Particle.hpp"
 #include <string>
 
 class App
@@ -69,5 +68,6 @@ class App
          */
         void OnCleanup();
 
-        std::vector<Particle> LoadFromArchive(std::string filename);
+        std::vector<CircumBody> CBVExample1();
+        std::vector<RectBody> RBVExample1(int width, int height);
 };

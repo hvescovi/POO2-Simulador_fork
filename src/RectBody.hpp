@@ -1,3 +1,4 @@
+#pragma once
 #include "Body.hpp"
 #include "Vect.hpp"
 
@@ -11,5 +12,5 @@ class RectBody : public Body
         // Construtor padrão.
         RectBody();
 
-        RectBody(Vect initialPosition, Vect initalVelocity, Vect initialAcceleration, double height, double width);
+        RectBody(Vect initialPosition, Vect initalVelocity, Vect initialAcceleration, double width, double height);
 };

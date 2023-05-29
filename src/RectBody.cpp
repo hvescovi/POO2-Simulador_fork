@@ -6,8 +6,8 @@ RectBody::RectBody():
     width{ 0.0 }
 {}
 
-RectBody::RectBody(Vect initialPosition, Vect initalVelocity, Vect initialAcceleration, double height, double width):
+RectBody::RectBody(Vect initialPosition, Vect initalVelocity, Vect initialAcceleration, double width, double height):
     Body(initialPosition, initalVelocity, initialAcceleration, height * width),
-    height{ height },
-    width{ width }
+    width{ width },
+    height{ height }
 {}

@@ -1,5 +1,5 @@
+#pragma once
 #include "Vect.hpp"
-#include "Shape.hpp"
 #include <vector>
 
 class Body

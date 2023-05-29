@@ -1,3 +1,4 @@
+#pragma once
 #include "RectBody.hpp"
 #include "CircumBody.hpp"
 

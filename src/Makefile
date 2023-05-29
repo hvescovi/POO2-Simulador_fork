@@ -11,9 +11,8 @@ LDFLAGS = -LSDL2\i686-w64-mingw32\lib -lmingw32 -lSDL2main -lSDL2
 # FLAGS
 CXXFLAGS=-g $(INCDIRS)
 
-OBJECTS=App.o App_Implementation.o App_LoadFromArchive.o \
-	AppUtils.o AppVar.o Body.o Particle.o Vect.o SimulationTime.o \
-	Simulador.o
+OBJECTS=App.o App_Implementation.o AppVar.o Body.o CircumBody.o RectBody.o \
+	Exhibition.o Mechanics.o Vect.o SimulationTime.o Simulador.o
 
 BINARY=Simulador
 
@@ -27,19 +26,19 @@ $(BINARY): $(OBJECTS) bin
 
 App.o: App.cpp App.hpp \
 	AppVar.cpp AppVar.hpp \
-	Vect.cpp Vect.hpp
+	Vect.hpp
 	$(CXX) $(CXXFLAGS) -c App.cpp
 
 App_Implementation.o: App_Implementation.cpp App.hpp
 	$(CXX) $(CXXFLAGS) -c App_Implementation.cpp
 
-App_LoadFromArchive.o: App_LoadFromArchive.cpp App.hpp
-	$(CXX) $(CXXFLAGS) -c App_LoadFromArchive.cpp
+# App_LoadFromArchive.o: App_LoadFromArchive.cpp App.hpp
+# 	$(CXX) $(CXXFLAGS) -c App_LoadFromArchive.cpp
 
-AppUtils.o: AppUtils.cpp AppUtils.hpp Vect.hpp
-	$(CXX) $(CXXFLAGS) -c AppUtils.cpp
+# AppUtils.o: AppUtils.cpp AppUtils.hpp Vect.hpp
+# 	$(CXX) $(CXXFLAGS) -c AppUtils.cpp
 
-AppVar.o: AppVar.cpp AppVar.hpp Particle.hpp Vect.hpp
+AppVar.o: AppVar.cpp AppVar.hpp Vect.hpp
 	$(CXX) $(CXXFLAGS) -c AppVar.cpp
 
 Body.o: Body.cpp Body.hpp Vect.hpp
@@ -51,11 +50,17 @@ CircumBody.o: CircumBody.cpp CircumBody.hpp Body.hpp Vect.hpp
 RectBody.o: RectBody.cpp RectBody.hpp Body.hpp Vect.hpp
 	$(CXX) $(CXXFLAGS) -c RectBody.cpp
 
-Vect.o: Vect.cpp Vect.hpp
-	$(CXX) $(CXXFLAGS) -c Vect.cpp
+Exhibition.o: Exhibition.cpp Exhibition.hpp Vect.hpp
+	$(CXX) $(CXXFLAGS) -c Exhibition.cpp
+
+Mechanics.o: Mechanics.cpp Mechanics.hpp Vect.hpp
+	$(CXX) $(CXXFLAGS) -c Mechanics.cpp
 
 SimulationTime.o: SimulationTime.cpp SimulationTime.hpp
 	$(CXX) $(CXXFLAGS) -c SimulationTime.cpp
+
+Vect.o: Vect.cpp Vect.hpp
+	$(CXX) $(CXXFLAGS) -c Vect.cpp
 
 Simulador.o: Simulador.cpp # App.hpp AppVar.hpp Particle.hpp Vect.hpp
 	$(CXX) $(CXXFLAGS) -c Simulador.cpp

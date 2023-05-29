@@ -1,3 +1,4 @@
+#pragma once
 #include "Body.hpp"
 #include "Vect.hpp"
 
