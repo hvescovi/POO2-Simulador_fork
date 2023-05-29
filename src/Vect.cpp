@@ -35,6 +35,9 @@ double Vect::s_Distance(Vect& v1, Vect& v2)
 
 double Vect::s_AngleBetween(Vect& v1, Vect& v2)
 {
+    if ((v1.Module() <= 0.5) || (v2.Module() <= 0.5))
+        return 0;
+
     return std::acos((v1 * v2) / (v1.Module() * v2.Module()));
 }
 

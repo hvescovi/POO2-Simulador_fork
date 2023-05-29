@@ -134,10 +134,10 @@ void App::OnLoopThroughBodies()
         j = 0;
         while (j < rectSize)
         {
+            Mechanics::CircumRectCollision(global.circumBodies[i], global.rectBodies[j]);
+
             if (drawRects)
             {
-                Mechanics::CircumRectCollision(global.circumBodies[i], global.rectBodies[j]);
-
                 SDL_SetRenderDrawColor(renderer, 255, 64, 64, SDL_ALPHA_OPAQUE);
                 Exhibition::DisplayRectBody(renderer, global.rectBodies[j]);
             }
@@ -155,7 +155,14 @@ std::vector<CircumBody> App::CBVExample1()
 {
     vector<CircumBody> v;
 
-    v.push_back(CircumBody(Vect(100, 200), Vect(20, 20), Vect(0, 10), 30));
+    v.push_back(CircumBody(Vect(140, 240), Vect(20, 20), Vect(0, 10), 30));
+
+    int i = 1;
+    while (i <= 9)
+    {
+        v.push_back(CircumBody(Vect(50 + (i * 50), 100), Vect(i * 2, 0), Vect(0, 10), 10));
+        i += 1;
+    }
 
     return v;
 }

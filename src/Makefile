@@ -66,4 +66,4 @@ Simulador.o: Simulador.cpp # App.hpp AppVar.hpp Particle.hpp Vect.hpp
 	$(CXX) $(CXXFLAGS) -c Simulador.cpp
 
 clean:
-	del /f /q $(BINARY).exe $(OBJECTS)
+	del /f /q bin\$(BINARY).exe $(OBJECTS)

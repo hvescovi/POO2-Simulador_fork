@@ -1,7 +1,8 @@
 #include "Mechanics.hpp"
 #include <algorithm>
 
-#define PI 3.1415926535897932384626433832795
+#define PI       3.1415926535897932384626433832795
+#define PI_DIV_2 1.5707963267948966192313216916398
 
 void Mechanics::CircumMove(CircumBody& circum, double rDT)
 {
@@ -120,6 +121,11 @@ void Mechanics::CircumRectCollision(CircumBody& circum, RectBody& rect)
     // Se a distância entre a posição do corpo circular e NP
     // for maior que a medida do raio, não há colisão
     if (vPosNP.Module() > circum.radius)
+        return;
+
+    // Se o ângulo entre vPosNP e o vetor de velocidade do corpo
+    // circular for maior que 90°, os corpos não estão se aproximando
+    if (Vect::s_AngleBetween(vPosNP, circum.velocity) < PI_DIV_2)
         return;
 
     // Teste para saber se o vetor de velocidade está
