@@ -128,7 +128,7 @@ void Mechanics::CircumRectCollision(CircumBody& circum, RectBody& rect)
     // Se o argumento de vVelocityTest ficar abaixo de 180°,
     // o vetor de velocidade do corpo circular está acima de vPosNP.
 
-    // Se o arguimento de vVelocityTest ficar acima de 180°,
+    // Se o argumento de vVelocityTest ficar acima de 180°,
     // o vetor de velocidade do corpo circular está abaixo de vPosNP.
     Vect vVelocityTest = Vect(circum.velocity.x, circum.velocity.y);
     vVelocityTest.IncArgument(-vPosNP.Argument());

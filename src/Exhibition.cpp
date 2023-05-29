@@ -22,28 +22,28 @@ void Exhibition::DisplayVector(SDL_Renderer* renderer, Vect initialPos, Vect fin
     // Renderiza segmento esquerdo da flecha do vetor
     SDL_RenderDrawLine(
         renderer,
-        (int)finalPos.x,
-        (int)finalPos.y,
-        (int)finalPos.x + /*(int)std::round(*/LArrowSegment.x, 
-        (int)finalPos.y + /*(int)std::round(*/LArrowSegment.y
+        finalPos.x,
+        finalPos.y,
+        finalPos.x + /*(int)std::round(*/LArrowSegment.x, 
+        finalPos.y + /*(int)std::round(*/LArrowSegment.y
     );
 
     // Renderiza segmento direito da flecha do vetor
     SDL_RenderDrawLine(
         renderer,
-        (int)finalPos.x,
-        (int)finalPos.y,
-        (int)finalPos.x + /*(int)std::round(*/RArrowSegment.x,
-        (int)finalPos.y + /*(int)std::round(*/RArrowSegment.y
+        finalPos.x,
+        finalPos.y,
+        finalPos.x + /*(int)std::round(*/RArrowSegment.x,
+        finalPos.y + /*(int)std::round(*/RArrowSegment.y
     );
 
     // Renderiza segmento principal do vetor
     SDL_RenderDrawLine(
         renderer, 
-        (int)initialPos.x, 
-        (int)initialPos.y,
-        (int)finalPos.x,
-        (int)finalPos.y
+        initialPos.x, 
+        initialPos.y,
+        finalPos.x,
+        finalPos.y
     );
 }
 

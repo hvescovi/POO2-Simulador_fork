@@ -10,7 +10,7 @@ void App::OnBeforeLoop()
     OnLoopThroughBodies();
     OnRenderPresent();
     global.ST.Delay();
-    SDL_Delay((Uint32)2000);
+    SDL_Delay((Uint32)1000);
 }
 
 void App::OnCleanup() 
@@ -99,7 +99,7 @@ void App::OnLoopThroughBodies()
     int i = 0;
     int j = 0;
     int circumSize = global.circumBodies.size();
-    int rectSize   = global.circumBodies.size();
+    int rectSize   = global.rectBodies.size();
     bool drawRects = true;
     while (i < circumSize)
     {
@@ -155,7 +155,7 @@ std::vector<CircumBody> App::CBVExample1()
 {
     vector<CircumBody> v;
 
-    v.push_back(CircumBody(Vect(200, 400), Vect(20, 20), Vect(0, 5), 30));
+    v.push_back(CircumBody(Vect(200, 400), Vect(20, 20), Vect(0, 10), 30));
 
     return v;
 }
