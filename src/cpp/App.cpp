@@ -1,4 +1,4 @@
-#include "App.hpp"
+#include "../hpp/App.hpp"
 #include <string.h>
 
 App::App():

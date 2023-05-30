@@ -1,4 +1,4 @@
-#include "SimulationTime.hpp"
+#include "../hpp/SimulationTime.hpp"
 #include <SDL.h>
 
 SimulationTime::SimulationTime():

@@ -1,7 +1,7 @@
-#include "App.hpp"
+#include "../hpp/App.hpp"
 #include <iostream>
-#include "Mechanics.hpp"
-#include "Exhibition.hpp"
+#include "../hpp/Mechanics.hpp"
+#include "../hpp/Exhibition.hpp"
 
 void App::OnBeforeLoop()
 {
@@ -49,7 +49,7 @@ void App::OnInit()
 {
     global = AppVar(60, 800, 600, 24, RBVExample1(800, 600), CBVExample1());
 
-    if (SDL_Init(SDL_INIT_EVERYTHING) < 0) 
+    if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
     {
         std::cout << "SDL não pôde ser inicializado. " << SDL_GetError() << std::endl;
         exit(1);
@@ -155,12 +155,18 @@ std::vector<CircumBody> App::CBVExample1()
 {
     vector<CircumBody> v;
 
-    v.push_back(CircumBody(Vect(140, 240), Vect(20, 20), Vect(0, 10), 30));
+    // v.push_back(CircumBody(Vect(140, 240), Vect(20, 20), Vect(0, 10), 30));
 
     int i = 1;
-    while (i <= 9)
+    int j = 1;
+    while (i <= 13)
     {
-        v.push_back(CircumBody(Vect(50 + (i * 50), 100), Vect(i * 2, 0), Vect(0, 10), 10));
+        j = 1;
+        while (j <= 7)
+        {
+            v.push_back(CircumBody(Vect(50 + (i * 50), 20 + (j * 70)), Vect(i * 2, 0), Vect(0, 10), 10 + i + j));
+            j += 1;
+        }
         i += 1;
     }
 
@@ -178,7 +184,10 @@ std::vector<RectBody> App::RBVExample1(int width, int height)
     v.push_back(RectBody(Vect(width - 10, 0),  Vect(0, 0), Vect(0, 0), 10, height));
 
     // Teste
-    v.push_back(RectBody(Vect(150, 250),  Vect(0, 0), Vect(0, 0), 200, 100));
+    v.push_back(RectBody(Vect(150, 250), Vect(0, 0), Vect(0, 0), 200, 100));
+    v.push_back(RectBody(Vect(30, 400),  Vect(0, 0), Vect(0, 0), 100, 20));
+    v.push_back(RectBody(Vect(400, 120), Vect(0, 0), Vect(0, 0), 20, 350));
+    v.push_back(RectBody(Vect(700, 10),  Vect(0, 0), Vect(0, 0), 15, 420));
 
     return v;
 }

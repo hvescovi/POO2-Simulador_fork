@@ -3,10 +3,10 @@ CXX=g++
 
 # FLAG DE INCLUSÃO
 # INCDIRS=-ISDL2\i686-w64-mingw32\include\SDL2 -LSDL2\i686-w64-mingw32\lib 
-INCDIRS=-ISDL2\i686-w64-mingw32\include\SDL2
+INCDIRS=-I..\lib\SDL2win_i686-w64-mingw32\include\SDL2
 
 # FLAG DE BIBLIOTECA
-LDFLAGS = -LSDL2\i686-w64-mingw32\lib -lmingw32 -lSDL2main -lSDL2
+LDFLAGS = -L..\lib\SDL2win_i686-w64-mingw32\lib -lmingw32 -lSDL2main -lSDL2
 
 # FLAGS
 CXXFLAGS=-g $(INCDIRS)
@@ -24,43 +24,37 @@ bin:
 $(BINARY): $(OBJECTS) bin
 	$(CXX) $(OBJECTS) -o bin/$(BINARY) $(LDFLAGS)
 
-App.o: App.cpp App.hpp \
-	AppVar.cpp AppVar.hpp \
-	Vect.hpp
-	$(CXX) $(CXXFLAGS) -c App.cpp
+App.o: cpp/App.cpp hpp/App.hpp \
+	cpp/AppVar.cpp hpp/AppVar.hpp \
+	hpp/Vect.hpp
+	$(CXX) $(CXXFLAGS) -c cpp/App.cpp
 
-App_Implementation.o: App_Implementation.cpp App.hpp
-	$(CXX) $(CXXFLAGS) -c App_Implementation.cpp
+App_Implementation.o: cpp/App_Implementation.cpp hpp/App.hpp
+	$(CXX) $(CXXFLAGS) -c cpp/App_Implementation.cpp
 
-# App_LoadFromArchive.o: App_LoadFromArchive.cpp App.hpp
-# 	$(CXX) $(CXXFLAGS) -c App_LoadFromArchive.cpp
+AppVar.o: cpp/AppVar.cpp hpp/AppVar.hpp hpp/Vect.hpp
+	$(CXX) $(CXXFLAGS) -c cpp/AppVar.cpp
 
-# AppUtils.o: AppUtils.cpp AppUtils.hpp Vect.hpp
-# 	$(CXX) $(CXXFLAGS) -c AppUtils.cpp
+Body.o: cpp/Body.cpp hpp/Body.hpp hpp/Vect.hpp
+	$(CXX) $(CXXFLAGS) -c cpp/Body.cpp
 
-AppVar.o: AppVar.cpp AppVar.hpp Vect.hpp
-	$(CXX) $(CXXFLAGS) -c AppVar.cpp
+CircumBody.o: cpp/CircumBody.cpp hpp/CircumBody.hpp hpp/Body.hpp hpp/Vect.hpp
+	$(CXX) $(CXXFLAGS) -c cpp/CircumBody.cpp
 
-Body.o: Body.cpp Body.hpp Vect.hpp
-	$(CXX) $(CXXFLAGS) -c Body.cpp
+RectBody.o: cpp/RectBody.cpp hpp/RectBody.hpp hpp/Body.hpp hpp/Vect.hpp
+	$(CXX) $(CXXFLAGS) -c cpp/RectBody.cpp
 
-CircumBody.o: CircumBody.cpp CircumBody.hpp Body.hpp Vect.hpp
-	$(CXX) $(CXXFLAGS) -c CircumBody.cpp
+Exhibition.o: cpp/Exhibition.cpp hpp/Exhibition.hpp hpp/Vect.hpp
+	$(CXX) $(CXXFLAGS) -c cpp/Exhibition.cpp
 
-RectBody.o: RectBody.cpp RectBody.hpp Body.hpp Vect.hpp
-	$(CXX) $(CXXFLAGS) -c RectBody.cpp
+Mechanics.o: cpp/Mechanics.cpp hpp/Mechanics.hpp hpp/Vect.hpp
+	$(CXX) $(CXXFLAGS) -c cpp/Mechanics.cpp
 
-Exhibition.o: Exhibition.cpp Exhibition.hpp Vect.hpp
-	$(CXX) $(CXXFLAGS) -c Exhibition.cpp
+SimulationTime.o: cpp/SimulationTime.cpp hpp/SimulationTime.hpp
+	$(CXX) $(CXXFLAGS) -c cpp/SimulationTime.cpp
 
-Mechanics.o: Mechanics.cpp Mechanics.hpp Vect.hpp
-	$(CXX) $(CXXFLAGS) -c Mechanics.cpp
-
-SimulationTime.o: SimulationTime.cpp SimulationTime.hpp
-	$(CXX) $(CXXFLAGS) -c SimulationTime.cpp
-
-Vect.o: Vect.cpp Vect.hpp
-	$(CXX) $(CXXFLAGS) -c Vect.cpp
+Vect.o: cpp/Vect.cpp hpp/Vect.hpp
+	$(CXX) $(CXXFLAGS) -c cpp/Vect.cpp
 
 Simulador.o: Simulador.cpp # App.hpp AppVar.hpp Particle.hpp Vect.hpp
 	$(CXX) $(CXXFLAGS) -c Simulador.cpp

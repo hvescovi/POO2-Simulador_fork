@@ -1,4 +1,4 @@
-#include "AppVar.hpp"
+#include "../hpp/AppVar.hpp"
 
 AppVar::AppVar():
     width{},

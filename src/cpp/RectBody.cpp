@@ -1,4 +1,4 @@
-#include "RectBody.hpp"
+#include "../hpp/RectBody.hpp"
 
 RectBody::RectBody():
     Body(),

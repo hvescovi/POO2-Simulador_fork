@@ -1,4 +1,4 @@
-#include "Mechanics.hpp"
+#include "../hpp/Mechanics.hpp"
 #include <algorithm>
 
 #define PI       3.1415926535897932384626433832795
@@ -116,35 +116,36 @@ void Mechanics::CircumRectCollision(CircumBody& circum, RectBody& rect)
     );
 
     // Vetor criado a partir da posição do corpo circular e NP
-    Vect vPosNP = Vect(vNP, circum.position);
+    Vect vNPPos = Vect(vNP, circum.position);
 
     // Se a distância entre a posição do corpo circular e NP
     // for maior que a medida do raio, não há colisão
-    if (vPosNP.Module() > circum.radius)
+    if (vNPPos.Module() > circum.radius)
         return;
 
-    // Se o ângulo entre vPosNP e o vetor de velocidade do corpo
-    // circular for maior que 90°, os corpos não estão se aproximando
-    if (Vect::s_AngleBetween(vPosNP, circum.velocity) < PI_DIV_2)
+    // Se o ângulo entre vNPPos e o vetor de velocidade do corpo
+    // circular for menor que 90°, não há colisão
+    // (Lembrando que vNPPos vai de NP até a Posição do corpo)
+    if (Vect::s_AngleBetween(vNPPos, circum.velocity) < PI_DIV_2)
         return;
 
     // Teste para saber se o vetor de velocidade está
-    // "acima" de vPosNP: 
+    // "acima" de vNPPos: 
 
     // Se o argumento de vVelocityTest ficar abaixo de 180°,
-    // o vetor de velocidade do corpo circular está acima de vPosNP.
+    // o vetor de velocidade do corpo circular está acima de vNPPos.
 
     // Se o argumento de vVelocityTest ficar acima de 180°,
-    // o vetor de velocidade do corpo circular está abaixo de vPosNP.
+    // o vetor de velocidade do corpo circular está abaixo de vNPPos.
     Vect vVelocityTest = Vect(circum.velocity.x, circum.velocity.y);
-    vVelocityTest.IncArgument(-vPosNP.Argument());
+    vVelocityTest.IncArgument(-vNPPos.Argument());
 
     if (vVelocityTest.Argument() <= PI)
         // Incrementa o argumento do vetor de velocidade do corpo
         // circular com o seguinte ângulo em radianos:
-        // 180° - 2 * Ângulo entre vetor de velocidade e vPosNP
-        circum.velocity.IncArgument(PI - 2 * Vect::s_AngleBetween(circum.velocity, vPosNP));
+        // 180° - 2 * Ângulo entre vetor de velocidade e vNPPos
+        circum.velocity.IncArgument(PI - 2 * Vect::s_AngleBetween(circum.velocity, vNPPos));
     else
         // Para este caso, o incremento deve ser negativo
-        circum.velocity.IncArgument(-(PI - 2 * Vect::s_AngleBetween(circum.velocity, vPosNP)));
+        circum.velocity.IncArgument(-(PI - 2 * Vect::s_AngleBetween(circum.velocity, vNPPos)));
 }
