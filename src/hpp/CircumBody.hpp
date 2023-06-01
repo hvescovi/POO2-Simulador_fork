@@ -7,6 +7,8 @@ class CircumBody : public Body
     public:
         double radius;
 
+        bool terminated;
+
         // Construtor padrão.
         CircumBody();
 

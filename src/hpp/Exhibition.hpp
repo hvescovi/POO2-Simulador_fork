@@ -9,5 +9,5 @@ class Exhibition
     public:
         static void DisplayVector(SDL_Renderer* renderer, Vect initialPos, Vect finalPos);
         static void DisplayRectBody(SDL_Renderer* renderer, RectBody& rect);
-        static void DisplayCircumBody(SDL_Renderer* renderer, CircumBody& circum, int circumVertexQuantity);
+        static void DisplayCircumBody(SDL_Renderer* renderer, CircumBody& circum, int circumVertexQuantity, int index);
 };

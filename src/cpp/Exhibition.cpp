@@ -7,6 +7,8 @@
 
 void Exhibition::DisplayVector(SDL_Renderer* renderer, Vect initialPos, Vect finalPos)
 {
+    SDL_SetRenderDrawColor(renderer, 255, 20, 147, SDL_ALPHA_OPAQUE);
+
     Vect mainSegment = Vect(initialPos, finalPos);
 
     double arrowMod = mainSegment.Module() * 0.15;
@@ -49,6 +51,11 @@ void Exhibition::DisplayVector(SDL_Renderer* renderer, Vect initialPos, Vect fin
 
 void Exhibition::DisplayRectBody(SDL_Renderer* renderer, RectBody& rect)
 {
+    if (rect.terminator)
+        SDL_SetRenderDrawColor(renderer, 255, 0, 0, SDL_ALPHA_OPAQUE);
+    else
+        SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
+
     SDL_RenderDrawLine(
             renderer, 
             rect.position.x,
@@ -82,8 +89,10 @@ void Exhibition::DisplayRectBody(SDL_Renderer* renderer, RectBody& rect)
         );
 }
 
-void Exhibition::DisplayCircumBody(SDL_Renderer* renderer, CircumBody& circum, int circumVertexQuantity)
+void Exhibition::DisplayCircumBody(SDL_Renderer* renderer, CircumBody& circum, int circumVertexQuantity, int index)
 {
+    SDL_SetRenderDrawColor(renderer, ((5 * index) > 255) ? 255 : 5 * index, 255, 0, SDL_ALPHA_OPAQUE);
+
     double incRad = (360.0 / circumVertexQuantity) * PI_DIV_180;
 
     Vect vAux1 = Vect(circum.radius, 0.0);

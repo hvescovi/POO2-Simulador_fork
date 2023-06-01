@@ -4,10 +4,12 @@
 
 CircumBody::CircumBody():
     Body(),
-    radius{ 0.0 }
+    radius{ 0.0 },
+    terminated{ false }
 {}
 
 CircumBody::CircumBody(Vect initialPosition, Vect initalVelocity, Vect initialAcceleration, double radius):
     Body(initialPosition, initalVelocity, initialAcceleration, radius * 2 * PI),
-    radius{ radius }
+    radius{ radius },
+    terminated{ false }
 {}

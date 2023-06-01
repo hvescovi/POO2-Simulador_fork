@@ -106,10 +106,8 @@ void App::OnLoopThroughBodies()
         Mechanics::CircumMove(global.circumBodies[i], global.ST.rDT);
         Mechanics::CircumAccelerate(global.circumBodies[i], global.ST.rDT);
 
-        SDL_SetRenderDrawColor(renderer, 255, 255, 0, SDL_ALPHA_OPAQUE);
-        Exhibition::DisplayCircumBody(renderer, global.circumBodies[i], global.circumVertexQuantity);
-        
-        SDL_SetRenderDrawColor(renderer, 64, 128, 255, SDL_ALPHA_OPAQUE);
+        Exhibition::DisplayCircumBody(renderer, global.circumBodies[i], global.circumVertexQuantity, i);
+
         Exhibition::DisplayVector(
             renderer, 
             global.circumBodies[i].position, 
@@ -137,15 +135,23 @@ void App::OnLoopThroughBodies()
             Mechanics::CircumRectCollision(global.circumBodies[i], global.rectBodies[j]);
 
             if (drawRects)
-            {
-                SDL_SetRenderDrawColor(renderer, 255, 64, 64, SDL_ALPHA_OPAQUE);
                 Exhibition::DisplayRectBody(renderer, global.rectBodies[j]);
-            }
 
             j += 1;
         }
 
         drawRects = false;
+
+        i += 1;
+    }
+
+    // Outro laço para remover do vetor de corpos circulares
+    // aqueles que estão terminados
+    i = 0;
+    while (i < circumSize)
+    {
+        if (global.circumBodies[i].terminated)
+            global.circumBodies.erase(global.circumBodies.begin() + i);
 
         i += 1;
     }
@@ -185,9 +191,9 @@ std::vector<RectBody> App::RBVExample1(int width, int height)
 
     // Teste
     v.push_back(RectBody(Vect(150, 250), Vect(0, 0), Vect(0, 0), 200, 100));
-    v.push_back(RectBody(Vect(30, 400),  Vect(0, 0), Vect(0, 0), 100, 20));
-    v.push_back(RectBody(Vect(400, 120), Vect(0, 0), Vect(0, 0), 20, 350));
-    v.push_back(RectBody(Vect(700, 10),  Vect(0, 0), Vect(0, 0), 15, 420));
+    v.push_back(RectBody(Vect(30, 400),  Vect(0, 0), Vect(0, 0), 100, 20 ));
+    v.push_back(RectBody(Vect(400, 120), Vect(0, 0), Vect(0, 0), 20,  350));
+    v.push_back(RectBody(Vect(700, 10),  Vect(0, 0), Vect(0, 0), 15,  420, true));
 
     return v;
 }

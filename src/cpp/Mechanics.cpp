@@ -123,6 +123,14 @@ void Mechanics::CircumRectCollision(CircumBody& circum, RectBody& rect)
     if (vNPPos.Module() > circum.radius)
         return;
 
+    // Se o retângulo for um terminador, o círculo que colidir com ele
+    // deverá ser terminado
+    if (rect.terminator)
+    {
+        circum.terminated = true;
+        return;
+    }
+
     // Se o ângulo entre vNPPos e o vetor de velocidade do corpo
     // circular for menor que 90°, não há colisão
     // (Lembrando que vNPPos vai de NP até a Posição do corpo)

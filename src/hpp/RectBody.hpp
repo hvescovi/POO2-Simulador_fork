@@ -9,8 +9,12 @@ class RectBody : public Body
 
         double width;
 
+        bool terminator;
+
         // Construtor padrão.
         RectBody();
 
         RectBody(Vect initialPosition, Vect initalVelocity, Vect initialAcceleration, double width, double height);
+
+        RectBody(Vect initialPosition, Vect initalVelocity, Vect initialAcceleration, double width, double height, bool terminator);
 };
