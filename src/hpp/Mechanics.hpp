@@ -10,5 +10,5 @@ class Mechanics
         static void CircumAccelerate   (CircumBody& circum,  double      rDT    );
         static void CircumCollision    (CircumBody& circum1, CircumBody& circum2);
         static void CircumRectCollision(CircumBody& circum,  RectBody&   rect   );
-        static void AttractToTerminator(CircumBody& circum,  std::vector<RectBody> rectBodies);
+        static void AttractToTerminator(CircumBody& circum,  std::vector<RectBody> rectBodies, double accel);
 };

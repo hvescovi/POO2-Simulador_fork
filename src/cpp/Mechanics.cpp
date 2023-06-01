@@ -159,17 +159,47 @@ void Mechanics::CircumRectCollision(CircumBody& circum, RectBody& rect)
         circum.velocity.IncArgument(-(PI - 2 * Vect::s_AngleBetween(circum.velocity, vNPPos)));
 }
 
-void Mechanics::AttractToTerminator(CircumBody& circum,  std::vector<RectBody> rectBodies)
+void Mechanics::AttractToTerminator(CircumBody& circum,  std::vector<RectBody> rectBodies, double accel)
 {
     int i = 0;
-    int iNearest = -1;
-    Vect vShortest = Vect(INT_MAX, INT_MAX);
-    Vect vCurr  = Vect();
     int rectSize = rectBodies.size();
+
+    // Índice do retângulo terminador mais próximo do círculo
+    int iNearest = -1;
+
+    // Controle de inicialização da variável vShortest
+    bool firstTerminator = true;
+
+    // Ao final do laço, este será o vetor da posição do 
+    // círculo até o centro do retângulo mais próximo
+    Vect vShortest = Vect();
+
+    // Vetor da posição do círculo até 
+    // o centro do retângulo atual do laço
+    Vect vCurr = Vect();
+
+    double vShortestMod;
+
     while (i < rectSize)
     {
         if (!rectBodies[i].terminator)
         {
+            i += 1;
+            continue;
+        }
+
+        if (firstTerminator)
+        {
+            vShortest = Vect(
+                circum.position, 
+                Vect(
+                    rectBodies[i].position.x + (rectBodies[i].width  / 2),
+                    rectBodies[i].position.y + (rectBodies[i].height / 2)
+                )
+            );
+
+            firstTerminator = false;
+            iNearest = i;
             i += 1;
             continue;
         }
@@ -182,10 +212,12 @@ void Mechanics::AttractToTerminator(CircumBody& circum,  std::vector<RectBody> r
             )
         );
 
-        if (vCurr.Module() < vShortest.Module())
+        vShortestMod = vShortest.Module();
+
+        if (vCurr.Module() < vShortestMod)
         {
             vShortest = vCurr;
-            iNearest = i;
+            iNearest = i; 
         }
 
         i += 1;
@@ -195,7 +227,8 @@ void Mechanics::AttractToTerminator(CircumBody& circum,  std::vector<RectBody> r
     if (iNearest = -1)
         return;
 
-    // criar vetor a partir da posição do círculo e do retângulo terminador
-    // setar um módulo fixo (usar semelhança de triângulos)
-    // atribuir a aceleração ao círculo
+    // Constante de proporção da semelhança de triângulos
+    double k = accel / vShortestMod;
+
+    circum.acceleration = vShortest * k;
 }

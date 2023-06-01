@@ -140,6 +140,8 @@ void App::OnLoopThroughBodies()
             j += 1;
         }
 
+        Mechanics::AttractToTerminator(global.circumBodies[i], global.rectBodies, 5);
+
         drawRects = false;
 
         i += 1;
@@ -170,7 +172,7 @@ std::vector<CircumBody> App::CBVExample1()
         j = 1;
         while (j <= 7)
         {
-            v.push_back(CircumBody(Vect(50 + (i * 50), 20 + (j * 70)), Vect(i * 2, 0), Vect(0, 10), 10 + i + j));
+            v.push_back(CircumBody(Vect(50 + (i * 50), 20 + (j * 70)), Vect(i * 2, 0), Vect(0, 0), 10 + i + j));
             j += 1;
         }
         i += 1;
