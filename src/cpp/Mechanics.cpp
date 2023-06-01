@@ -1,5 +1,6 @@
 #include "../hpp/Mechanics.hpp"
 #include <algorithm>
+#include <limits.h>
 
 #define PI       3.1415926535897932384626433832795
 #define PI_DIV_2 1.5707963267948966192313216916398
@@ -156,4 +157,45 @@ void Mechanics::CircumRectCollision(CircumBody& circum, RectBody& rect)
     else
         // Para este caso, o incremento deve ser negativo
         circum.velocity.IncArgument(-(PI - 2 * Vect::s_AngleBetween(circum.velocity, vNPPos)));
+}
+
+void Mechanics::AttractToTerminator(CircumBody& circum,  std::vector<RectBody> rectBodies)
+{
+    int i = 0;
+    int iNearest = -1;
+    Vect vShortest = Vect(INT_MAX, INT_MAX);
+    Vect vCurr  = Vect();
+    int rectSize = rectBodies.size();
+    while (i < rectSize)
+    {
+        if (!rectBodies[i].terminator)
+        {
+            i += 1;
+            continue;
+        }
+
+        vCurr = Vect(
+            circum.position, 
+            Vect(
+                rectBodies[i].position.x + (rectBodies[i].width  / 2),
+                rectBodies[i].position.y + (rectBodies[i].height / 2)
+            )
+        );
+
+        if (vCurr.Module() < vShortest.Module())
+        {
+            vShortest = vCurr;
+            iNearest = i;
+        }
+
+        i += 1;
+    }
+
+    // Se iNearest for -1, não há terminadores
+    if (iNearest = -1)
+        return;
+
+    // criar vetor a partir da posição do círculo e do retângulo terminador
+    // setar um módulo fixo (usar semelhança de triângulos)
+    // atribuir a aceleração ao círculo
 }

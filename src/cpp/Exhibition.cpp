@@ -57,36 +57,36 @@ void Exhibition::DisplayRectBody(SDL_Renderer* renderer, RectBody& rect)
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
 
     SDL_RenderDrawLine(
-            renderer, 
-            rect.position.x,
-            rect.position.y,
-            rect.position.x + rect.width,
-            rect.position.y
-        );
+        renderer, 
+        rect.position.x,
+        rect.position.y,
+        rect.position.x + rect.width,
+        rect.position.y
+    );
 
     SDL_RenderDrawLine(
-            renderer, 
-            rect.position.x,
-            rect.position.y,
-            rect.position.x,
-            rect.position.y + rect.height
-        );
+        renderer, 
+        rect.position.x,
+        rect.position.y,
+        rect.position.x,
+        rect.position.y + rect.height
+    );
 
     SDL_RenderDrawLine(
-            renderer, 
-            rect.position.x + rect.width,
-            rect.position.y,
-            rect.position.x + rect.width,
-            rect.position.y + rect.height
-        );
+        renderer, 
+        rect.position.x + rect.width,
+        rect.position.y,
+        rect.position.x + rect.width,
+        rect.position.y + rect.height
+    );
 
     SDL_RenderDrawLine(
-            renderer, 
-            rect.position.x,
-            rect.position.y + rect.height,
-            rect.position.x + rect.width,
-            rect.position.y + rect.height
-        );
+        renderer, 
+        rect.position.x,
+        rect.position.y + rect.height,
+        rect.position.x + rect.width,
+        rect.position.y + rect.height
+    );
 }
 
 void Exhibition::DisplayCircumBody(SDL_Renderer* renderer, CircumBody& circum, int circumVertexQuantity, int index)
