@@ -28,6 +28,14 @@ double Vect::Module()
     return std::sqrt(x * x + y * y);
 }
 
+void Vect::setModule(double mod)
+{
+    double k = mod / Module();
+
+    x = x * k;
+    y = y * k;
+}
+
 double Vect::s_Distance(Vect& v1, Vect& v2)
 {
     return Vect(v1, v2).Module();

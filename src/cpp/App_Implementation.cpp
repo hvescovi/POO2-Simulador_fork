@@ -47,7 +47,7 @@ void App::OnEvent(SDL_Event event)
 
 void App::OnInit()
 {
-    global = AppVar(60, 800, 600, 24, RBVExample1(800, 600), CBVExample1());
+    global = AppVar(60, 800, 600, 24, RBVExample2(800, 600), CBVExample2());
 
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
     {
@@ -140,7 +140,7 @@ void App::OnLoopThroughBodies()
             j += 1;
         }
 
-        Mechanics::AttractToTerminator(global.circumBodies[i], global.rectBodies, 5);
+        Mechanics::AttractToTerminator(global.circumBodies[i], global.rectBodies, 30);
 
         drawRects = false;
 
@@ -167,16 +167,25 @@ std::vector<CircumBody> App::CBVExample1()
 
     int i = 1;
     int j = 1;
-    while (i <= 13)
+    while (i <= 22)
     {
         j = 1;
-        while (j <= 7)
+        while (j <= 17 )
         {
-            v.push_back(CircumBody(Vect(50 + (i * 50), 20 + (j * 70)), Vect(i * 2, 0), Vect(0, 0), 10 + i + j));
+            v.push_back(CircumBody(Vect(50 + (i * 30), 20 + (j * 30)), Vect(i * 2, 0), Vect(0, 0), 5 + j / 3, 30));
             j += 1;
         }
         i += 1;
     }
+
+    return v;
+}
+
+std::vector<CircumBody> App::CBVExample2()
+{
+    vector<CircumBody> v;
+
+    v.push_back(CircumBody(Vect(100, 300), Vect(0, -60), Vect(0, 0), 100, 3000));
 
     return v;
 }
@@ -193,9 +202,28 @@ std::vector<RectBody> App::RBVExample1(int width, int height)
 
     // Teste
     v.push_back(RectBody(Vect(150, 250), Vect(0, 0), Vect(0, 0), 200, 100));
-    v.push_back(RectBody(Vect(30, 400),  Vect(0, 0), Vect(0, 0), 100, 20 ));
+    v.push_back(RectBody(Vect(30,  400), Vect(0, 0), Vect(0, 0), 100, 20 ));
     v.push_back(RectBody(Vect(400, 120), Vect(0, 0), Vect(0, 0), 20,  350));
-    v.push_back(RectBody(Vect(700, 10),  Vect(0, 0), Vect(0, 0), 15,  420, true));
+    v.push_back(RectBody(Vect(10,  200), Vect(0, 0), Vect(0, 0), 20,  200, true));
+    // v.push_back(RectBody(Vect(770, 200), Vect(0, 0), Vect(0, 0), 20,  200, true));
+
+    return v;
+}
+
+std::vector<RectBody> App::RBVExample2(int width, int height)
+{
+    vector<RectBody> v;
+
+    // Bordas
+    v.push_back(RectBody(Vect(0, 0),           Vect(0, 0), Vect(0, 0), width, 10 ));
+    v.push_back(RectBody(Vect(0, height - 10), Vect(0, 0), Vect(0, 0), width, 10 ));
+    v.push_back(RectBody(Vect(0, 0),           Vect(0, 0), Vect(0, 0), 10, height));
+    v.push_back(RectBody(Vect(width - 10, 0),  Vect(0, 0), Vect(0, 0), 10, height));
+
+    // Teste
+    v.push_back(RectBody(Vect((width / 2) - 10, (height / 2) - 10), Vect(0, 0), Vect(0, 0), 20, 20, true));
+    //v.push_back(RectBody(Vect(10,  200), Vect(0, 0), Vect(0, 0), 20,  200, true));
+    //v.push_back(RectBody(Vect(770, 200), Vect(0, 0), Vect(0, 0), 20,  200, true));
 
     return v;
 }

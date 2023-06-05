@@ -1,6 +1,7 @@
 #include "../hpp/Mechanics.hpp"
 #include <algorithm>
 #include <limits.h>
+#include <iostream>
 
 #define PI       3.1415926535897932384626433832795
 #define PI_DIV_2 1.5707963267948966192313216916398
@@ -15,6 +16,9 @@ void Mechanics::CircumAccelerate(CircumBody& circum, double rDT)
 {
     // Velocidade no instante i + 1 = Velocidade no instante i + Aceleração * DT Real.
     circum.velocity = circum.velocity + (circum.acceleration * rDT);
+
+    if (circum.velocity.Module() > circum.maxVel)
+        circum.velocity.setModule(circum.maxVel);
 }
 
 void Mechanics::CircumCollision(CircumBody& circum1, CircumBody& circum2)
@@ -212,9 +216,7 @@ void Mechanics::AttractToTerminator(CircumBody& circum,  std::vector<RectBody> r
             )
         );
 
-        vShortestMod = vShortest.Module();
-
-        if (vCurr.Module() < vShortestMod)
+        if (vCurr.Module() < vShortest.Module()) 
         {
             vShortest = vCurr;
             iNearest = i; 
@@ -224,11 +226,13 @@ void Mechanics::AttractToTerminator(CircumBody& circum,  std::vector<RectBody> r
     }
 
     // Se iNearest for -1, não há terminadores
-    if (iNearest = -1)
+    if (iNearest == -1)
+    {
         return;
+    }
 
     // Constante de proporção da semelhança de triângulos
-    double k = accel / vShortestMod;
+    double k = accel / vShortest.Module();
 
-    circum.acceleration = vShortest * k;
+    circum.acceleration = Vect(vShortest * k);
 }

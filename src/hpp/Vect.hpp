@@ -82,6 +82,8 @@ class Vect
         */
         double Module();
 
+        void setModule(double mod);
+
         static double s_Distance(Vect& v1, Vect& v2);
 
         static double s_AngleBetween(Vect& v1, Vect& v2);

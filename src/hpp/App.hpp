@@ -70,4 +70,6 @@ class App
 
         std::vector<CircumBody> CBVExample1();
         std::vector<RectBody> RBVExample1(int width, int height);
+        std::vector<CircumBody> CBVExample2();
+        std::vector<RectBody> RBVExample2(int width, int height);
 };
