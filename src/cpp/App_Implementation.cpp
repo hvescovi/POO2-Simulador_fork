@@ -2,15 +2,31 @@
 #include <iostream>
 #include "../hpp/Mechanics.hpp"
 #include "../hpp/Exhibition.hpp"
+#include "../hpp/Persistence.hpp"
 
-void App::OnBeforeLoop()
+void App::OnBeforeSimulation()
 {
-    global.ST.ticks = SDL_GetTicks();
+    Persistence::LoadSimulation(global);
+
+    int ticks = SDL_GetTicks();
+    global.ST.ticks = ticks;
+    global.ticksBeforeSimulation = ticks;
+
+    runningSimulation = true;
+    global.terminatedCircumQty = 0;
+
     OnRenderClear();
     OnLoopThroughBodies();
     OnRenderPresent();
+
     global.ST.Delay();
     SDL_Delay((Uint32)1000);
+}
+
+void App::OnAfterSimulation()
+{
+    Persistence::SaveResults(global);
+    // Persistence -> salvar simulação
 }
 
 void App::OnCleanup() 
@@ -30,7 +46,8 @@ void App::OnEvent(SDL_Event event)
             {
                 // Escape (Esc)
                 case SDLK_ESCAPE:
-                    running = false;
+                    runningSimulation = false;
+                    runningProgram    = false;
                     break;
 
                 default: break;
@@ -38,7 +55,8 @@ void App::OnEvent(SDL_Event event)
             break;
 
         case SDL_QUIT:
-            running = false;
+            runningSimulation = false;
+            runningProgram    = false;
             break;
 
         default: break;
@@ -47,7 +65,15 @@ void App::OnEvent(SDL_Event event)
 
 void App::OnInit()
 {
-    global = AppVar(60, 800, 600, 24, RBVExample2(800, 600), CBVExample2());
+    global = AppVar(
+        60, 
+        800, 
+        600, 
+        60000, 
+        24, 
+        RBVExample2(800, 600), 
+        CBVExample2()
+    );
 
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
     {
@@ -96,9 +122,16 @@ void App::OnRenderPresent()
 
 void App::OnLoopThroughBodies()
 {
+    int circumSize = global.circumBodies.size();
+
+    if (circumSize == 0)
+    {
+        runningSimulation = false;
+        return;
+    }
+
     int i = 0;
     int j = 0;
-    int circumSize = global.circumBodies.size();
     int rectSize   = global.rectBodies.size();
     bool drawRects = true;
     while (i < circumSize)
@@ -153,7 +186,10 @@ void App::OnLoopThroughBodies()
     while (i < circumSize)
     {
         if (global.circumBodies[i].terminated)
+        {
             global.circumBodies.erase(global.circumBodies.begin() + i);
+            global.terminatedCircumQty += 1;
+        }
 
         i += 1;
     }

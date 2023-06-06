@@ -15,6 +15,18 @@ class AppVar
         // Altura da janela SDL.
         int height;
 
+        // Ticks do SDL ao iniciar a simulação
+        int ticksBeforeSimulation;
+
+        // Quantidade de ticks limite para uma simulação
+        int ticksLimitPerSimulation;
+
+        // Quantidade de corpos circulares no início de cada simulação
+        int circumQty;
+
+        // Quantidade de corpos circulares terminados
+        int terminatedCircumQty;
+
         // Quantidade de vértices para se desenhar as circunferências.
         int circumVertexQuantity;
 
@@ -38,5 +50,13 @@ class AppVar
          * \param rectBodies Lista de corpos retangulares
          * \param circumBodies Lista de corpos circulares
          */
-        AppVar(int fps, int width, int heigth, int circumVertexQuantity, vector<RectBody> rectBodies, vector<CircumBody> circumBodies);
+        AppVar(
+            int fps, 
+            int width, 
+            int heigth, 
+            int ticksLimitPerSimulation,
+            int circumVertexQuantity, 
+            vector<RectBody> rectBodies, 
+            vector<CircumBody> circumBodies
+        );
 };

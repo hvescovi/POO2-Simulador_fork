@@ -11,7 +11,10 @@ class App
         AppVar global;
 
         // Aplicação em execução.
-        bool running;
+        bool runningProgram;
+
+        // Simulação em execução.
+        bool runningSimulation;
 
         // Janela SDL.
         SDL_Window* window;
@@ -37,9 +40,14 @@ class App
         void OnInit();
 
         /**
-         * É executado antes do loop principal da aplicação.
+         * É executado antes do loop de simulação.
          */
-        void OnBeforeLoop();
+        void OnBeforeSimulation();
+
+        /**
+         * É executado depois do loop de simulação.
+         */
+        void OnAfterSimulation();
 
         /**
          * Trata eventos do SDL.

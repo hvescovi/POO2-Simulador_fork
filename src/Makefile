@@ -12,7 +12,7 @@ LDFLAGS = -L..\lib\SDL2win_i686-w64-mingw32\lib -lmingw32 -lSDL2main -lSDL2
 CXXFLAGS=-g $(INCDIRS)
 
 OBJECTS=App.o App_Implementation.o AppVar.o Body.o CircumBody.o RectBody.o \
-	Exhibition.o Mechanics.o Vect.o SimulationTime.o Simulador.o
+	Exhibition.o Mechanics.o Vect.o SimulationTime.o Simulador.o Persistence.o
 
 BINARY=Simulador
 
@@ -52,6 +52,9 @@ Mechanics.o: cpp/Mechanics.cpp hpp/Mechanics.hpp hpp/Vect.hpp
 
 SimulationTime.o: cpp/SimulationTime.cpp hpp/SimulationTime.hpp
 	$(CXX) $(CXXFLAGS) -c cpp/SimulationTime.cpp
+
+Persistence.o: cpp/Persistence.cpp hpp/Persistence.hpp
+	$(CXX) $(CXXFLAGS) -c cpp/Persistence.cpp
 
 Vect.o: cpp/Vect.cpp hpp/Vect.hpp
 	$(CXX) $(CXXFLAGS) -c cpp/Vect.cpp

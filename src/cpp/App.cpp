@@ -5,39 +5,46 @@ App::App():
     global{},
     window{ NULL },
     renderer{ NULL },
-    running{ true }
+    runningProgram{ true },
+    runningSimulation{ true }
 {}
 
 int App::Execute()
 {
     OnInit();
 
-    OnBeforeLoop();
-
     // Estrutura que contém informações sobre eventos
     SDL_Event event;
 
-    // Laço de repetição do simulador
-    while (running) 
+    // Laço de repetição do programa
+    while (runningProgram) 
     {
-        // Ticks atuais da execução do SDL. É utilizado em OnTimeDelay
-        global.ST.ticks = SDL_GetTicks();
+        OnBeforeSimulation();
 
-        // Checa por eventos e os percorre um por vez a partir de uma fila.
-        // A fila é preenchida por eventos toda vez que o SDL detecta um input.
-        // Lista de eventos : https://wiki.libsdl.org/SDL_Event#data_fields.
-        while (SDL_PollEvent(&event)) 
+        // Laço de repetição da simulação atual
+        while (runningSimulation)
         {
-            OnEvent(event);
+            // Ticks atuais da execução do SDL. É utilizado em OnTimeDelay
+            global.ST.ticks = SDL_GetTicks();
+
+            // Checa por eventos e os percorre um por vez a partir de uma fila.
+            // A fila é preenchida por eventos toda vez que o SDL detecta um input.
+            // Lista de eventos : https://wiki.libsdl.org/SDL_Event#data_fields.
+            while (SDL_PollEvent(&event)) 
+            {
+                OnEvent(event);
+            }
+
+            OnRenderClear();
+
+            OnLoopThroughBodies();
+
+            OnRenderPresent();
+
+            global.ST.Delay();
         }
 
-        OnRenderClear();
-
-        OnLoopThroughBodies();
-
-        OnRenderPresent();
-
-        global.ST.Delay();
+        OnAfterSimulation();
     }
 
     OnCleanup();
