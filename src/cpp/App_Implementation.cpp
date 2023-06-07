@@ -6,14 +6,17 @@
 
 void App::OnBeforeSimulation()
 {
-    Persistence::LoadSimulation(global);
+    if (!Persistence::LoadSimulation(global))
+        runningProgram = false;
+
+    global.rectBodies = RectBodyVector();
+    global.terminatedCircumQty = 0;
+    global.circumQty = global.circumBodies.size();
+    runningSimulation = true;
 
     int ticks = SDL_GetTicks();
     global.ST.ticks = ticks;
     global.ticksBeforeSimulation = ticks;
-
-    runningSimulation = true;
-    global.terminatedCircumQty = 0;
 
     OnRenderClear();
     OnLoopThroughBodies();
@@ -25,8 +28,8 @@ void App::OnBeforeSimulation()
 
 void App::OnAfterSimulation()
 {
-    Persistence::SaveResults(global);
-    // Persistence -> salvar simulação
+    if (!Persistence::SaveResults(global))
+        runningProgram = false;
 }
 
 void App::OnCleanup() 
@@ -69,9 +72,9 @@ void App::OnInit()
         60, 
         800, 
         600, 
-        60000, 
+        30000, 
         24, 
-        RBVExample2(800, 600), 
+        RectBodyVector(), 
         CBVExample2()
     );
 
@@ -246,20 +249,42 @@ std::vector<RectBody> App::RBVExample1(int width, int height)
     return v;
 }
 
-std::vector<RectBody> App::RBVExample2(int width, int height)
+std::vector<RectBody> App::RectBodyVector()
 {
+    int height = global.height;
+    int width  = global.width;
+
     vector<RectBody> v;
 
-    // Bordas
-    v.push_back(RectBody(Vect(0, 0),           Vect(0, 0), Vect(0, 0), width, 10 ));
-    v.push_back(RectBody(Vect(0, height - 10), Vect(0, 0), Vect(0, 0), width, 10 ));
-    v.push_back(RectBody(Vect(0, 0),           Vect(0, 0), Vect(0, 0), 10, height));
-    v.push_back(RectBody(Vect(width - 10, 0),  Vect(0, 0), Vect(0, 0), 10, height));
+    if (global.simulationRectTemplate == 1)
+    {
+        // Bordas
+        v.push_back(RectBody(Vect(0, 0),           Vect(0, 0), Vect(0, 0), width, 10 ));
+        v.push_back(RectBody(Vect(0, height - 10), Vect(0, 0), Vect(0, 0), width, 10 ));
+        v.push_back(RectBody(Vect(0, 0),           Vect(0, 0), Vect(0, 0), 10, height));
+        v.push_back(RectBody(Vect(width - 10, 0),  Vect(0, 0), Vect(0, 0), 10, height));
 
-    // Teste
-    v.push_back(RectBody(Vect((width / 2) - 10, (height / 2) - 10), Vect(0, 0), Vect(0, 0), 20, 20, true));
-    //v.push_back(RectBody(Vect(10,  200), Vect(0, 0), Vect(0, 0), 20,  200, true));
-    //v.push_back(RectBody(Vect(770, 200), Vect(0, 0), Vect(0, 0), 20,  200, true));
+        // Teste
+        v.push_back(RectBody(Vect((width / 2) - 10, (height / 2) - 10), Vect(0, 0), Vect(0, 0), 20, 20, true));
+        //v.push_back(RectBody(Vect(10,  200), Vect(0, 0), Vect(0, 0), 20,  200, true));
+        //v.push_back(RectBody(Vect(770, 200), Vect(0, 0), Vect(0, 0), 20,  200, true));
+    }
+    else
+    if (global.simulationRectTemplate == 2)
+    {
+        // Bordas
+        v.push_back(RectBody(Vect(0, 0),           Vect(0, 0), Vect(0, 0), width, 10 ));
+        v.push_back(RectBody(Vect(0, height - 10), Vect(0, 0), Vect(0, 0), width, 10 ));
+        v.push_back(RectBody(Vect(0, 0),           Vect(0, 0), Vect(0, 0), 10, height));
+        v.push_back(RectBody(Vect(width - 10, 0),  Vect(0, 0), Vect(0, 0), 10, height));
+
+        // Teste
+        v.push_back(RectBody(Vect(150, 250), Vect(0, 0), Vect(0, 0), 100, 30));
+        v.push_back(RectBody(Vect(30,  400), Vect(0, 0), Vect(0, 0), 150, 20));
+        v.push_back(RectBody(Vect(400, 120), Vect(0, 0), Vect(0, 0), 350, 20));
+        v.push_back(RectBody(Vect(10,  200), Vect(0, 0), Vect(0, 0), 20,  200, true));
+        v.push_back(RectBody(Vect(770, 200), Vect(0, 0), Vect(0, 0), 20,  200, true));
+    }
 
     return v;
 }

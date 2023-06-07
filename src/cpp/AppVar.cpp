@@ -3,6 +3,8 @@
 AppVar::AppVar():
     width{},
     height{},
+    simulationFileIndex{},
+    simulationRectTemplate{},
     ticksLimitPerSimulation{},
     circumQty{},
     terminatedCircumQty{},
@@ -15,6 +17,8 @@ AppVar::AppVar():
 AppVar::AppVar(int pFps, int pWidth, int pHeigth, int ticksLimitPerSimulation, int circumVertexQuantity, vector<RectBody> rectBodies, vector<CircumBody> circumBodies):
     width{ pWidth },
     height{ pHeigth },
+    simulationFileIndex{ 0 },
+    simulationRectTemplate{ 1 },
     ticksLimitPerSimulation{ ticksLimitPerSimulation },
     circumQty{ 0 },
     terminatedCircumQty{ 0 },

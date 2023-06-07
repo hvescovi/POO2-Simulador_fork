@@ -15,6 +15,12 @@ class AppVar
         // Altura da janela SDL.
         int height;
 
+        // Índice do arquivo de simulação atual
+        int simulationFileIndex;
+
+        // Template de retângulos para a simualção atual
+        int simulationRectTemplate;
+
         // Ticks do SDL ao iniciar a simulação
         int ticksBeforeSimulation;
 
