@@ -12,7 +12,7 @@ LDFLAGS = -L..\lib\SDL2win_i686-w64-mingw32\lib -lmingw32 -lSDL2main -lSDL2
 CXXFLAGS=-g $(INCDIRS)
 
 OBJECTS=App.o App_Implementation.o AppVar.o Body.o CircumBody.o RectBody.o \
-	Exhibition.o Mechanics.o Vect.o SimulationTime.o Simulador.o Persistence.o
+	Exhibition.o Mechanics.o Vect.o SimulationTime.o Persistence.o Simulador.o
 
 BINARY=Simulador
 

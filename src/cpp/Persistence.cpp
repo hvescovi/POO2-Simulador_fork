@@ -1,8 +1,8 @@
 #include "../hpp/Persistence.hpp"
 #include "../hpp/App.hpp"
-#include <fstream>  // para usar file streams (ifstream,ofstream)
-#include <iostream> // para usar cin,cout
-#include <string>   // para usar string
+#include <fstream>  // para usar file streams (ifstream, ofstream)
+#include <iostream>
+#include <string>
 using namespace std;
 
 bool Persistence::LoadSimulation(AppVar& global)
@@ -52,21 +52,12 @@ bool Persistence::LoadSimulation(AppVar& global)
 
 bool Persistence::SaveResults(AppVar& global)
 {
-    /*
-    COISAS PARA SALVAR
-    tempo decorrido da simulação
-    tempo limite da simulação
-    quantidade de círculos carregados
-    quantidade de círculos terminados
-    Template utilizado
-    */
-
     ofstream file;
-    file.open("res_sim_" + to_string(global.simulationFileIndex) + ".txt", ios::out);
+    file.open("res_sim.txt", fstream::app);
 
     if (!file.is_open())
     {
-        cout << "O arquivo res_sim_" + to_string(global.simulationFileIndex) + ".txt não pôde ser aberto" << endl;
+        cout << "O arquivo res_sim.txt não pôde ser aberto" << endl;
         return false;
     }
 
@@ -74,7 +65,10 @@ bool Persistence::SaveResults(AppVar& global)
     file << to_string(global.simulationRectTemplate) << ";"
          << to_string(global.circumQty)              << ";"
          << to_string(global.terminatedCircumQty)    << ";"
-         << to_string((SDL_GetTicks() - global.ticksBeforeSimulation) / 1000);
+         << to_string((SDL_GetTicks() - global.ticksBeforeSimulation) / 1000)
+         << "\n";
+
+    file.close();
 
     return true;
 }

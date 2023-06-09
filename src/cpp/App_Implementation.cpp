@@ -251,39 +251,33 @@ std::vector<RectBody> App::RBVExample1(int width, int height)
 
 std::vector<RectBody> App::RectBodyVector()
 {
-    int height = global.height;
-    int width  = global.width;
-
     vector<RectBody> v;
 
-    if (global.simulationRectTemplate == 1)
-    {
-        // Bordas
-        v.push_back(RectBody(Vect(0, 0),           Vect(0, 0), Vect(0, 0), width, 10 ));
-        v.push_back(RectBody(Vect(0, height - 10), Vect(0, 0), Vect(0, 0), width, 10 ));
-        v.push_back(RectBody(Vect(0, 0),           Vect(0, 0), Vect(0, 0), 10, height));
-        v.push_back(RectBody(Vect(width - 10, 0),  Vect(0, 0), Vect(0, 0), 10, height));
+    // Bordas
+    v.push_back(RectBody(Vect(0, 0),        Vect(0, 0), Vect(0, 0), 800,  30));
+    v.push_back(RectBody(Vect(0, 0),        Vect(0, 0), Vect(0, 0), 800,  30));
+    v.push_back(RectBody(Vect(0, 600 - 30), Vect(0, 0), Vect(0, 0), 800,  30));
+    v.push_back(RectBody(Vect(0, 0),        Vect(0, 0), Vect(0, 0),  30, 600));
+    v.push_back(RectBody(Vect(800 - 30, 0), Vect(0, 0), Vect(0, 0),  30, 600));
 
-        // Teste
-        v.push_back(RectBody(Vect((width / 2) - 10, (height / 2) - 10), Vect(0, 0), Vect(0, 0), 20, 20, true));
-        //v.push_back(RectBody(Vect(10,  200), Vect(0, 0), Vect(0, 0), 20,  200, true));
-        //v.push_back(RectBody(Vect(770, 200), Vect(0, 0), Vect(0, 0), 20,  200, true));
-    }
-    else
-    if (global.simulationRectTemplate == 2)
+    switch(global.simulationRectTemplate)
     {
-        // Bordas
-        v.push_back(RectBody(Vect(0, 0),           Vect(0, 0), Vect(0, 0), width, 10 ));
-        v.push_back(RectBody(Vect(0, height - 10), Vect(0, 0), Vect(0, 0), width, 10 ));
-        v.push_back(RectBody(Vect(0, 0),           Vect(0, 0), Vect(0, 0), 10, height));
-        v.push_back(RectBody(Vect(width - 10, 0),  Vect(0, 0), Vect(0, 0), 10, height));
+        case 1:
+            v.push_back(RectBody(Vect(200, 150), Vect(0, 0), Vect(0, 0), 400, 20));
+            v.push_back(RectBody(Vect(200, 430), Vect(0, 0), Vect(0, 0), 400, 20));
+            v.push_back(RectBody(Vect( 10, 275), Vect(0, 0), Vect(0, 0),  10, 50, true));
+            v.push_back(RectBody(Vect(780, 275), Vect(0, 0), Vect(0, 0),  10, 50, true));
+            break;
 
-        // Teste
-        v.push_back(RectBody(Vect(150, 250), Vect(0, 0), Vect(0, 0), 100, 30));
-        v.push_back(RectBody(Vect(30,  400), Vect(0, 0), Vect(0, 0), 150, 20));
-        v.push_back(RectBody(Vect(400, 120), Vect(0, 0), Vect(0, 0), 350, 20));
-        v.push_back(RectBody(Vect(10,  200), Vect(0, 0), Vect(0, 0), 20,  200, true));
-        v.push_back(RectBody(Vect(770, 200), Vect(0, 0), Vect(0, 0), 20,  200, true));
+        case 2:
+            v.push_back(RectBody(Vect(200, 150), Vect(0, 0), Vect(0, 0), 20, 400));
+            v.push_back(RectBody(Vect(580, 150), Vect(0, 0), Vect(0, 0), 20, 400));
+            v.push_back(RectBody(Vect(250, 580), Vect(0, 0), Vect(0, 0), 100, 10, true));
+            break;
+
+        default:
+            runningSimulation = false;
+            break;
     }
 
     return v;
