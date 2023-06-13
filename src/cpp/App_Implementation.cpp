@@ -70,8 +70,8 @@ void App::OnInit()
 {
     global = AppVar(
         60, 
-        800, 
-        600, 
+        1280, 
+        720, 
         30000, 
         24, 
         RectBodyVector(), 
@@ -253,12 +253,19 @@ std::vector<RectBody> App::RectBodyVector()
 {
     vector<RectBody> v;
 
+    int w = global.width;
+    int h = global.height;
+
     // Bordas
-    v.push_back(RectBody(Vect(0, 0),        Vect(0, 0), Vect(0, 0), 800,  30));
-    v.push_back(RectBody(Vect(0, 0),        Vect(0, 0), Vect(0, 0), 800,  30));
-    v.push_back(RectBody(Vect(0, 600 - 30), Vect(0, 0), Vect(0, 0), 800,  30));
-    v.push_back(RectBody(Vect(0, 0),        Vect(0, 0), Vect(0, 0),  30, 600));
-    v.push_back(RectBody(Vect(800 - 30, 0), Vect(0, 0), Vect(0, 0),  30, 600));
+    v.push_back(RectBody(Vect(0,           0), Vect(0, 0), Vect(0, 0), w/2-100, 30)); // Acima Esq.
+    v.push_back(RectBody(Vect(w/2+100,     0), Vect(0, 0), Vect(0, 0), w/2-100, 30)); // Acima Dir.
+
+    v.push_back(RectBody(Vect(0,        h-30), Vect(0, 0), Vect(0, 0), w/3-50,  30)); // Abaixo Esq.
+    v.push_back(RectBody(Vect(w/3+25,   h-30), Vect(0, 0), Vect(0, 0), w/3-50,  30)); // Abaixo Meio
+    v.push_back(RectBody(Vect(2*w/3+50, h-30), Vect(0, 0), Vect(0, 0), w/3-50,  30)); // Abaixo Dir.
+
+    v.push_back(RectBody(Vect(0, 0), Vect(0, 0), Vect(0, 0), 30, h)); // Lateral Esq
+    v.push_back(RectBody(Vect(w-30, 0), Vect(0, 0), Vect(0, 0), 30, h)); // Lateral Dir;
 
     switch(global.simulationRectTemplate)
     {
