@@ -144,11 +144,11 @@ void App::OnLoopThroughBodies()
 
         Exhibition::DisplayCircumBody(renderer, global.circumBodies[i], global.circumVertexQuantity, i);
 
-        Exhibition::DisplayVector(
-            renderer, 
-            global.circumBodies[i].position, 
-            global.circumBodies[i].position + global.circumBodies[i].velocity
-        );
+        // Exhibition::DisplayVector(
+        //     renderer, 
+        //     global.circumBodies[i].position, 
+        //     global.circumBodies[i].position + global.circumBodies[i].velocity
+        // );
 
         j = 0;
         while (j < circumSize)
@@ -257,29 +257,77 @@ std::vector<RectBody> App::RectBodyVector()
     int h = global.height;
 
     // Bordas
-    v.push_back(RectBody(Vect(0,           0), Vect(0, 0), Vect(0, 0), w/2-100, 30)); // Acima Esq.
-    v.push_back(RectBody(Vect(w/2+100,     0), Vect(0, 0), Vect(0, 0), w/2-100, 30)); // Acima Dir.
+    v.push_back(RectBody(Vect(0,            0), Vect(0, 0), Vect(0, 0), w/2-100, 30)); // Acima Esq.
+    v.push_back(RectBody(Vect(w/2+100,      0), Vect(0, 0), Vect(0, 0), w/2-100, 30)); // Acima Dir.
 
-    v.push_back(RectBody(Vect(0,        h-30), Vect(0, 0), Vect(0, 0), w/3-50,  30)); // Abaixo Esq.
-    v.push_back(RectBody(Vect(w/3+25,   h-30), Vect(0, 0), Vect(0, 0), w/3-50,  30)); // Abaixo Meio
-    v.push_back(RectBody(Vect(2*w/3+50, h-30), Vect(0, 0), Vect(0, 0), w/3-50,  30)); // Abaixo Dir.
+    v.push_back(RectBody(Vect(0,         h-30), Vect(0, 0), Vect(0, 0), w/3-100, 30)); // Abaixo Esq.
+    v.push_back(RectBody(Vect(w/3+100,   h-30), Vect(0, 0), Vect(0, 0), w/3-200, 30)); // Abaixo Meio
+    v.push_back(RectBody(Vect(2*w/3+100, h-30), Vect(0, 0), Vect(0, 0), w/3-100, 30)); // Abaixo Dir.
 
-    v.push_back(RectBody(Vect(0, 0), Vect(0, 0), Vect(0, 0), 30, h)); // Lateral Esq
-    v.push_back(RectBody(Vect(w-30, 0), Vect(0, 0), Vect(0, 0), 30, h)); // Lateral Dir;
+    v.push_back(RectBody(Vect(0,            0), Vect(0, 0), Vect(0, 0), 30,  h/2-50)); // Lateral Esq. Acima
+    v.push_back(RectBody(Vect(0,       h/2+50), Vect(0, 0), Vect(0, 0), 30,  h     )); // Lateral Esq. Abaixo
+
+    v.push_back(RectBody(Vect(w-30,         0), Vect(0, 0), Vect(0, 0), 30,  h/2-50)); // Lateral Dir. Acima
+    v.push_back(RectBody(Vect(w-30,    h/2+50), Vect(0, 0), Vect(0, 0), 30,  h     )); // Lateral Dir. Abaixo
 
     switch(global.simulationRectTemplate)
     {
         case 1:
-            v.push_back(RectBody(Vect(200, 150), Vect(0, 0), Vect(0, 0), 400, 20));
-            v.push_back(RectBody(Vect(200, 430), Vect(0, 0), Vect(0, 0), 400, 20));
-            v.push_back(RectBody(Vect( 10, 275), Vect(0, 0), Vect(0, 0),  10, 50, true));
-            v.push_back(RectBody(Vect(780, 275), Vect(0, 0), Vect(0, 0),  10, 50, true));
+            v.push_back(RectBody(Vect(w/2-100, 0), Vect(0, 0), Vect(0, 0), 50, 30));
+            v.push_back(RectBody(Vect(w/2+50, 0), Vect(0, 0), Vect(0, 0), 50, 30));
+
+            v.push_back(RectBody(Vect(w/3-100, h-30), Vect(0, 0), Vect(0, 0), 200, 30));
+            v.push_back(RectBody(Vect(2*w/3-100, h-30), Vect(0, 0), Vect(0, 0), 200, 30));
+
+            v.push_back(RectBody(Vect(0, h/2-50), Vect(0, 0), Vect(0, 0), 30, 100));
+            v.push_back(RectBody(Vect(w-30, h/2-50), Vect(0, 0), Vect(0, 0), 30, 100));
+
+            v.push_back(RectBody(Vect(w/2-50, 0), Vect(0, 0), Vect(0, 0), 100, 10, true));
             break;
 
         case 2:
-            v.push_back(RectBody(Vect(200, 150), Vect(0, 0), Vect(0, 0), 20, 400));
-            v.push_back(RectBody(Vect(580, 150), Vect(0, 0), Vect(0, 0), 20, 400));
-            v.push_back(RectBody(Vect(250, 580), Vect(0, 0), Vect(0, 0), 100, 10, true));
+            v.push_back(RectBody(Vect(w/3-100, h-30), Vect(0, 0), Vect(0, 0), 200, 30));
+            v.push_back(RectBody(Vect(2*w/3-100, h-30), Vect(0, 0), Vect(0, 0), 200, 30));
+
+            v.push_back(RectBody(Vect(0, h/2-50), Vect(0, 0), Vect(0, 0), 30, 100));
+            v.push_back(RectBody(Vect(w-30, h/2-50), Vect(0, 0), Vect(0, 0), 30, 100));
+
+            v.push_back(RectBody(Vect(w/2-100, 0), Vect(0, 0), Vect(0, 0), 200, 10, true));
+            break;
+
+        case 3:
+            v.push_back(RectBody(Vect(w/3-100, h-30), Vect(0, 0), Vect(0, 0), 50, 30));
+            v.push_back(RectBody(Vect(w/3+50, h-30), Vect(0, 0), Vect(0, 0), 50, 30));
+            v.push_back(RectBody(Vect(2*w/3-100, h-30), Vect(0, 0), Vect(0, 0), 50, 30));
+            v.push_back(RectBody(Vect(2*w/3+50, h-30), Vect(0, 0), Vect(0, 0), 50, 30));
+
+            v.push_back(RectBody(Vect(0, h/2-50), Vect(0, 0), Vect(0, 0), 30, 100));
+            v.push_back(RectBody(Vect(w-30, h/2-50), Vect(0, 0), Vect(0, 0), 30, 100));
+
+            v.push_back(RectBody(Vect(w/2-100, 0), Vect(0, 0), Vect(0, 0), 200, 30));
+
+            v.push_back(RectBody(Vect(w/3-50, h-10), Vect(0, 0), Vect(0, 0), 100, 10, true));
+            v.push_back(RectBody(Vect(2*w/3-50, h-10), Vect(0, 0), Vect(0, 0), 100, 10, true));
+            break;
+
+        case 4:
+            v.push_back(RectBody(Vect(w/3-100, h-10), Vect(0, 0), Vect(0, 0), 200, 10, true));
+            v.push_back(RectBody(Vect(2*w/3-100, h-10), Vect(0, 0), Vect(0, 0), 200, 10, true));
+
+            v.push_back(RectBody(Vect(0, h/2-50), Vect(0, 0), Vect(0, 0), 30, 100));
+            v.push_back(RectBody(Vect(w-30, h/2-50), Vect(0, 0), Vect(0, 0), 30, 100));
+
+            v.push_back(RectBody(Vect(w/2-100, 0), Vect(0, 0), Vect(0, 0), 200, 30));
+            break;
+
+        case 5:
+            v.push_back(RectBody(Vect(w/3-100, h-30), Vect(0, 0), Vect(0, 0), 200, 30));
+            v.push_back(RectBody(Vect(2*w/3-100, h-30), Vect(0, 0), Vect(0, 0), 200, 30));
+
+            v.push_back(RectBody(Vect(0, h/2-50), Vect(0, 0), Vect(0, 0), 10, 100, true));
+            v.push_back(RectBody(Vect(w-10, h/2-50), Vect(0, 0), Vect(0, 0), 10, 100, true));
+
+            v.push_back(RectBody(Vect(w/2-100, 0), Vect(0, 0), Vect(0, 0), 200, 30));
             break;
 
         default:
