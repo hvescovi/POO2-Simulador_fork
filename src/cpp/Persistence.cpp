@@ -61,7 +61,7 @@ bool Persistence::SaveResults(AppVar& global)
         return false;
     }
 
-    // Template, Quantidade de círculos no começo, Quantidade de círculos terminados, Tempo gasto na simualção
+    // Template, Quantidade de círculos no começo, Quantidade de círculos terminados, Tempo gasto na simulação
     file << to_string(global.simulationRectTemplate) << ";"
          << to_string(global.circumQty)              << ";"
          << to_string(global.terminatedCircumQty)    << ";"
