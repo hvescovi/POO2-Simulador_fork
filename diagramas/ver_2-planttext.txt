@@ -21,7 +21,8 @@ set separator ::
 
 class App{
   AppVar global;
-  bool executando;
+  bool runningProgram;
+  bool runningSimulation;
   SDL_Window* janela;
   SDL_Renderer* renderizador;
   int Executar();
@@ -29,12 +30,20 @@ class App{
   void AoAntesLoop();
   void AoEvento();
   void AoLimpar();
+  void AoIterarEntreOsCorpos();
+  void RenderizandoNaHora();
 }
 class AppVar{
   int alturaJanela;
   int larguraJanela;
+  int ticksBeforeSimulation;
+  int ticksLimitPerSimulation;
+  int circumQty;
+  int terminatedCircumQty;
+  int circumVertexQuantity
   *$tempozinho("TempoSimulacao TS");
-  vector<Corpo> corpos;
+  vector<RectBody> rectBodies;
+  vector<CircumBody> circumBodies;
 }
 class Vetor #white;line:Navy;line.bold;back:e5f4fe{
   double x;
@@ -65,20 +74,22 @@ class Corpo{
 abstract class Geometria::Forma{
   virtual void exibir();
 }
-class Geometria::Retangulo{
+class Geometria::RectBody{
   double altura;
   double largura;
-  void Exibir();
+  bool terminator;
 }
-class Geometria::Circunferencia{
+class Geometria::CircumBody{
   double raio;
-  void Exibir();
+  double maxVel;
+  bool terminator;
 }
-abstract class Utilidades::Mecanica{
-  {static} void Mover(Corpo* corpo);
-  {static} void Acelerar(Corpo* corpo);
-  {static} void DeveColidir(Corpo* corpo1, Corpo* corpo2);
-  {static} void Colidir(Corpo* corpo1, Corpo* corpo2);
+abstract class Utilidades::Mechanics{
+  {static} void CircumMove(CircumBody* circum);
+  {static} void CircumAccelerate(CircumBody* circum);
+  {static} void CircumCollision(CircumBody* circum1, CircumBody* circum2);
+  {static} void CircumRectCollision(CircumBody* circum, RectBody* rect);
+  {static} void AttractToTerminator(CicumBody* circum, std::vector<RectBody> rectBodies, double accel)
 }
 abstract class Utilidades::Exibicao{
   {static} void Exibir(Forma forma);
@@ -89,23 +100,23 @@ abstract class Utilidades::Persistencia{
 
 App *-left- AppVar
 
-Mecanica -[hidden]-> Exibicao
+Mechanics -[hidden]-> Exibicao
 Exibicao -[hidden]-> Persistencia
 
 App -- Utilidades
 
 App -[hidden]-> Corpo
-App -[hidden]-> Mecanica
+App -[hidden]-> Mechanics
 
 AppVar *-left- TempoSimulacao
 AppVar "1" o-down- "n" Corpo
 
-Corpo *-- Circunferencia
-Corpo *-- Retangulo
+Corpo *-- CircumBody
+Corpo *-- RectBody
 
 Corpo *-left- Vetor
 
-Retangulo --> Forma
-Circunferencia --> Forma
+RectBody --> Forma
+CircumBody --> Forma
 
 @enduml
