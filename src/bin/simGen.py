@@ -29,11 +29,11 @@ def main():
         listaCirc = []
         round = 0
         while round != numCirc:
-            raio = randint(5,10)
-            velMax = randint(20, 30)
+            raio = randint(10,15)
+            velMax = randint(30, 45)
             # 800x600 tela
-            x = randint(10+raio, 790-raio)
-            y = randint(10+raio, 590-raio)
+            x = randint(30+raio, 1250-raio)
+            y = randint(30+raio, 690-raio)
 
             if (verColisao(x, y, raio, listaCirc)):
                 listaCirc.append([x,y,raio,velMax])
@@ -53,5 +53,46 @@ def main():
                     item = item[:-1]
                 a.writelines(item)        
 
+def main2():
+    numSims = int(input("Numero de simulações: "))
+    numCirc = 300
+    listaCirc = []
+    round = 0
+    b = 0
+    for vez in range(0, numSims):
+        listaCirc = []
+        round = 0
+        while round != numCirc:
+            raio = randint(10,15)
+            velMax = randint(30, 45)
+            # 1280x720 tela
+            x = randint(30+raio, 1250-raio)
+            y = randint(30+raio, 690-raio)
+
+            if (verColisao(x, y, raio, listaCirc)):
+                listaCirc.append([x,y,raio,velMax])
+                round += 1
+
+        for v in range(0,5):
+            with open(f"simu_{b}.txt", "w") as a:
+                num = v+1
+                a.writelines(str(num) + "\n")
+                
+                for i in listaCirc:
+                    item = ''
+                    for j in i:
+                        item += str(j) + " "
+                    if (len(listaCirc) - listaCirc.index(i) > 1):
+                        item = item[:-1] + "\n"
+                    else:
+                        item = item[:-1]
+                    a.writelines(item)  
+            b+=1
+
+        
+
 if __name__ == "__main__":
-    main()
+    if int(input("Digite a alternativa: ")) == 1:
+        main()
+    else:
+        main2()

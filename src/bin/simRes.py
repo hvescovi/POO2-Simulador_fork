@@ -26,7 +26,7 @@ def main():
     
     grafico:
     x -> template
-    y -> media circulos mortos
+    y -> media circulos que fugiram
 
     terminal:
     tempo medio e qtde circulos
@@ -34,7 +34,7 @@ def main():
 
     # Todos os resultados com numeros inteiros
     resultados = []
-    circMort = []
+    circFuga = []
     qtdSim = 0
     tempoTotal = 0
 
@@ -56,21 +56,21 @@ def main():
         eixoX = list(eixoX)
 
         for i in eixoX:
-            circMort.append(0)
+            circFuga.append(0)
 
         for i in resultados:
-            circMort[i[0] - 1] += i[2]
+            circFuga[i[0] - 1] += i[2]
             tempoTotal += i[3]
 
         for i in range(len(eixoX)):
-            circMort[i] /= contagemTemplates[i]
+            circFuga[i] /= contagemTemplates[i]
     
     tempoMedio = tempoTotal/qtdSim
     print("----------------")
     print("Templates:")
     cont = 0
     for i in eixoX:
-        print(f"Template {i}: {circMort[cont]} circulos mortos.")
+        print(f"Template {i}: {circFuga[cont]} circulos que fugiram.")
         cont += 1
     print("----------------")
     print(f"As simulacoes tinham {resultados[0][1]} circulos.")
@@ -78,9 +78,9 @@ def main():
     print(f"Tempo medio de {tempoMedio} segundos")
 
 
-    plt.plot(eixoX, circMort, 'ro')
+    plt.plot(eixoX, circFuga, 'ro')
     plt.xticks(eixoX)
-    plt.yticks(circMort)
+    plt.yticks(circFuga)
     plt.xlabel("Template")
     plt.ylabel("Circulos Mortos")
     plt.grid(axis='y')
