@@ -3,16 +3,16 @@
 #include <limits.h>
 #include <iostream>
 
-#define PI       3.1415926535897932384626433832795
+#define PI 3.1415926535897932384626433832795
 #define PI_DIV_2 1.5707963267948966192313216916398
 
-void Mechanics::CircumMove(CircumBody& circum, double rDT)
+void Mechanics::CircumMove(CircumBody &circum, double rDT)
 {
     // Posição no instante i + 1 = Posição no instante i + Velocidade * DT Real.
     circum.position = circum.position + (circum.velocity * rDT);
 }
 
-void Mechanics::CircumAccelerate(CircumBody& circum, double rDT)
+void Mechanics::CircumAccelerate(CircumBody &circum, double rDT)
 {
     // Velocidade no instante i + 1 = Velocidade no instante i + Aceleração * DT Real.
     circum.velocity = circum.velocity + (circum.acceleration * rDT);
@@ -21,18 +21,19 @@ void Mechanics::CircumAccelerate(CircumBody& circum, double rDT)
         circum.velocity.setModule(circum.maxVel);
 }
 
-void Mechanics::CircumCollision(CircumBody& circum1, CircumBody& circum2)
+void Mechanics::CircumCollision(CircumBody &circum1, CircumBody &circum2)
 {
     // Se o produto escalar entre o vetor formado pelos vetores de posição
     // e o vetor formado pelos vetores de velocidade for maior ou igual
     // a zero, os corpos circulares não estão se aproximando
     if (Vect(circum1.position, circum2.position) *
-        Vect(circum1.velocity, circum2.velocity) >= 0)
+            Vect(circum1.velocity, circum2.velocity) >=
+        0)
     {
         return;
     }
 
-    // Se a soma dos raios dos corpos circulares for menor que a distância 
+    // Se a soma dos raios dos corpos circulares for menor que a distância
     // entre as posições deles, não há colisão
     if (circum1.radius + circum2.radius <
         Vect::s_Distance(circum1.position, circum2.position))
@@ -60,12 +61,12 @@ void Mechanics::CircumCollision(CircumBody& circum1, CircumBody& circum2)
 
     // "Eixo y"
     Vect uVN = Vect(circum1.position, circum2.position).unitVect();
-    
+
     // "Eixo x"
     Vect uVT = Vect(-uVN.y, uVN.x);
 
-    // Passo 2 - Criar os vetores de velocidade inicial 
-    // (antes da colisão) de ambos os corpos circulares. 
+    // Passo 2 - Criar os vetores de velocidade inicial
+    // (antes da colisão) de ambos os corpos circulares.
     // OBS: Eles já existem (obj_corpo_circular.velocidade)
 
     // Passo 3 - Projetar os vetores de velocidade inicial
@@ -90,7 +91,7 @@ void Mechanics::CircumCollision(CircumBody& circum1, CircumBody& circum2)
     double v1NAc = (v1NBc * (m1 - m2) + 2 * m2 * v2NBc) / (m1 + m2);
     double v2NAc = (v2NBc * (m2 - m1) + 2 * m1 * v1NBc) / (m1 + m2);
 
-    // Passo 6 - Converter componentes normais e 
+    // Passo 6 - Converter componentes normais e
     // tangenciais em vetores
     Vect v1NA = uVN * v1NAc;
     Vect v1TA = uVT * v1TAc;
@@ -99,8 +100,9 @@ void Mechanics::CircumCollision(CircumBody& circum1, CircumBody& circum2)
 
     // Passo 7 - Encontrar os vetores de velocidade
     // pós-colisão e aplicá-los aos corpos circulares
-    circum1.velocity = v1NA + v1TA;
-    circum2.velocity = v2NA + v2TA;
+    // HYLSON: multiplicação 0.1 realizada para diminuir a quicagem entre os círculos
+    circum1.velocity = v1NA * 0.2 + v1TA;
+    circum2.velocity = v2NA * 0.2 + v2TA;
 }
 
 double clamp(double value, double min, double max)
@@ -108,7 +110,7 @@ double clamp(double value, double min, double max)
     return std::max(min, std::min(value, max));
 }
 
-void Mechanics::CircumRectCollision(CircumBody& circum, RectBody& rect)
+void Mechanics::CircumRectCollision(CircumBody &circum, RectBody &rect)
 {
     // Para maiores esclarecimentos sobre a detecção de colisão,
     // https://youtu.be/_xj8FyG-aac
@@ -117,8 +119,7 @@ void Mechanics::CircumRectCollision(CircumBody& circum, RectBody& rect)
     // e retangular (Nearest Point)
     Vect vNP = Vect(
         clamp(circum.position.x, rect.position.x, rect.position.x + rect.width),
-        clamp(circum.position.y, rect.position.y, rect.position.y + rect.height)
-    );
+        clamp(circum.position.y, rect.position.y, rect.position.y + rect.height));
 
     // Vetor criado a partir da posição do corpo circular e NP
     Vect vNPPos = Vect(vNP, circum.position);
@@ -143,7 +144,7 @@ void Mechanics::CircumRectCollision(CircumBody& circum, RectBody& rect)
         return;
 
     // Teste para saber se o vetor de velocidade está
-    // "acima" de vNPPos: 
+    // "acima" de vNPPos:
 
     // Se o argumento de vVelocityTest ficar abaixo de 180°,
     // o vetor de velocidade do corpo circular está acima de vNPPos.
@@ -159,11 +160,24 @@ void Mechanics::CircumRectCollision(CircumBody& circum, RectBody& rect)
         // 180° - 2 * Ângulo entre vetor de velocidade e vNPPos
         circum.velocity.IncArgument(PI - 2 * Vect::s_AngleBetween(circum.velocity, vNPPos));
     else
+    {
         // Para este caso, o incremento deve ser negativo
-        circum.velocity.IncArgument(-(PI - 2 * Vect::s_AngleBetween(circum.velocity, vNPPos)));
+        // HYLSON: ajuste Matheus
+        double fatorMult = 0.3;
+        if ((circum.position.x = vNP.x) && (circum.position.y < vNP.y))
+            circum.velocity.y = circum.velocity.y * fatorMult;
+        else if ((circum.position.x > vNP.x) && (circum.position.y = vNP.y))
+            circum.velocity.x = circum.velocity.x * fatorMult;
+        else if ((circum.position.x = vNP.x) && (circum.position.y > vNP.y))
+            circum.velocity.y = circum.velocity.y * fatorMult;
+        else if ((circum.position.x < vNP.x) && (circum.position.y = vNP.y))
+            circum.velocity.x = circum.velocity.x * fatorMult;
+    }
+
+    circum.velocity.IncArgument(-(PI - 2 * Vect::s_AngleBetween(circum.velocity, vNPPos)));
 }
 
-void Mechanics::AttractToTerminator(CircumBody& circum,  std::vector<RectBody> rectBodies, double accel)
+void Mechanics::AttractToTerminator(CircumBody &circum, std::vector<RectBody> rectBodies, double accel)
 {
     int i = 0;
     int rectSize = rectBodies.size();
@@ -174,11 +188,11 @@ void Mechanics::AttractToTerminator(CircumBody& circum,  std::vector<RectBody> r
     // Controle de inicialização da variável vShortest
     bool firstTerminator = true;
 
-    // Ao final do laço, este será o vetor da posição do 
+    // Ao final do laço, este será o vetor da posição do
     // círculo até o centro do retângulo mais próximo
     Vect vShortest = Vect();
 
-    // Vetor da posição do círculo até 
+    // Vetor da posição do círculo até
     // o centro do retângulo atual do laço
     Vect vCurr = Vect();
 
@@ -195,12 +209,10 @@ void Mechanics::AttractToTerminator(CircumBody& circum,  std::vector<RectBody> r
         if (firstTerminator)
         {
             vShortest = Vect(
-                circum.position, 
+                circum.position,
                 Vect(
-                    rectBodies[i].position.x + (rectBodies[i].width  / 2),
-                    rectBodies[i].position.y + (rectBodies[i].height / 2)
-                )
-            );
+                    rectBodies[i].position.x + (rectBodies[i].width / 2),
+                    rectBodies[i].position.y + (rectBodies[i].height / 2)));
 
             firstTerminator = false;
             iNearest = i;
@@ -209,17 +221,15 @@ void Mechanics::AttractToTerminator(CircumBody& circum,  std::vector<RectBody> r
         }
 
         vCurr = Vect(
-            circum.position, 
+            circum.position,
             Vect(
-                rectBodies[i].position.x + (rectBodies[i].width  / 2),
-                rectBodies[i].position.y + (rectBodies[i].height / 2)
-            )
-        );
+                rectBodies[i].position.x + (rectBodies[i].width / 2),
+                rectBodies[i].position.y + (rectBodies[i].height / 2)));
 
-        if (vCurr.Module() < vShortest.Module()) 
+        if (vCurr.Module() < vShortest.Module())
         {
             vShortest = vCurr;
-            iNearest = i; 
+            iNearest = i;
         }
 
         i += 1;

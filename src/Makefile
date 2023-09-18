@@ -3,10 +3,18 @@ CXX=g++
 
 # FLAG DE INCLUSÃO
 # INCDIRS=-ISDL2\i686-w64-mingw32\include\SDL2 -LSDL2\i686-w64-mingw32\lib 
-INCDIRS=-I..\lib\SDL2win_i686-w64-mingw32\include\SDL2
+# windows
+# INCDIRS=-I..\lib\SDL2win_i686-w64-mingw32\include\SDL2
+
+# linux:
+INCDIRS=-I../lib/SDL2linux/include/
 
 # FLAG DE BIBLIOTECA
-LDFLAGS = -L..\lib\SDL2win_i686-w64-mingw32\lib -lmingw32 -lSDL2main -lSDL2
+# windows
+#LDFLAGS = -L..\lib\SDL2win_i686-w64-mingw32\lib -lmingw32 -lSDL2main -lSDL2
+
+# linux
+LDFLAGS = -L../lib -lSDL2main -lSDL2
 
 # FLAGS
 CXXFLAGS=-g $(INCDIRS)

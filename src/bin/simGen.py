@@ -30,7 +30,7 @@ def main():
         round = 0
         while round != numCirc:
             raio = randint(10,15)
-            velMax = randint(30, 45)
+            velMax = randint(130, 145)
             # 800x600 tela
             x = randint(30+raio, 1250-raio)
             y = randint(30+raio, 690-raio)
@@ -55,7 +55,7 @@ def main():
 
 def main2():
     numSims = int(input("Numero de simulações: "))
-    numCirc = 300
+    numCirc = 50 # HYLSON: número de círculos!!
     listaCirc = []
     round = 0
     b = 0
@@ -64,7 +64,7 @@ def main2():
         round = 0
         while round != numCirc:
             raio = randint(10,15)
-            velMax = randint(30, 45)
+            velMax = randint(80, 95)
             # 1280x720 tela
             x = randint(30+raio, 1250-raio)
             y = randint(30+raio, 690-raio)
@@ -92,7 +92,7 @@ def main2():
         
 
 if __name__ == "__main__":
-    if int(input("Digite a alternativa: ")) == 1:
-        main()
-    else:
-        main2()
+    #if int(input("Digite a alternativa: ")) == 1:
+    #    main()
+    #else:
+    main2()

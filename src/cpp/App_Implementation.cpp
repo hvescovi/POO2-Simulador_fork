@@ -72,7 +72,7 @@ void App::OnInit()
         60, 
         1280, 
         720, 
-        30000, 
+        3000000,  // HYLSON: 30000 para 30 segundos, aumentei para deixar tempo "ilimitado"
         24, 
         RectBodyVector(), 
         CBVExample2()
