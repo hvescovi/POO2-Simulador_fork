@@ -13,6 +13,9 @@ Posteriormente serão gerados arquivos de simulação para alimentar o programa 
 ## Compilação
 Para compilar o projeto, é preciso ter o Make instalado.
 
-Abra o terminal, selecione a pasta `src` e execute `make`. Usuários de Linux deverão apagar a tag `-lmingw32` do Makefile e também adaptar a regra clean.
+No linux, instale os recursos de desenvolvimento da biblioteca SDL2:
+sudo apt-get install libsdl2-dev
+
+Abra o terminal, selecione a pasta `src` e execute `make`. Dentro do arquivo makefile há configurações definidas para windows e linux.
 
 Após a execução de `make`, execute o binário `Simulador` que estará na pasta `bin`.
